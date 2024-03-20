@@ -13,9 +13,15 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+        var items = await Database.getItemsList();
+        var model = new HomeViewModel
+        {
+            Items = items 
+        };
+
+        return View(items);
     }
 
     public IActionResult Privacy()

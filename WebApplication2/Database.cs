@@ -66,6 +66,36 @@ public class Database
         }
     }
 
+    public static async Task<List<Item>> getItemsList()
+    {
+        List<Item> items = new List<Item>();
+        using (var connection = new MySqlConnection(connectionString))
+        {
+            try
+            {
+                await connection.OpenAsync();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = "SELECT name, price, count, path FROM items";
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            items.Add(new Item(reader.GetString(0), reader.GetDecimal(1), reader.GetInt32(2),
+                                reader.GetString(3)));
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                await Logger.LogAsync("Error on get items: " + ex.Message, Logger.LogLevel.Error);
+                throw;
+            }
+        }
+
+        return items;
+    }
     /*public static async Task getAccountsList()
     {
         using (var connection = new MySqlConnection(connectionString))

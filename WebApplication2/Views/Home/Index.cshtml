@@ -1,103 +1,25 @@
-﻿@{
+﻿@model List<WebApplication2.Item>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<section class="header__main">
+<section class="collections">
     <div class="container">
-        <div class="header__inner">
-            <div class="header__content">
-                <div class="header__bg"></div>
-                <img src="images/shape1.png" alt="" class="header__shape-img--1">
-                <img src="images/shape2.png" alt="" class="header__shape-img--2" >
-                <img src="images/shape3.png" alt="" class="header__shape-img--3">
-                <h1 class="header__title">
-                    BUY <br> ELFBAR SUKKA
-                </h1>
-                <p class="header__text">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, ad blanditiis error harum illo illum iste, laudantium nobis numquam omnis qui quos rerum, voluptate. Autem dolore maiores molestias officia voluptas!
-                </p>
-                <a href="#" class="header__section section__btn">Buy</a>
-            </div>
+        <div class="collection__inner">
+            <h1 class="collection__title section__title">Цена дуделок!</h1>
+            <p class="collection__text">Risus commodo id odio turpis pharetra elementum...</p>
+        </div>
+        <div class="collection__cards">
+            @foreach (var item in Model)
+            {
+                <div class="collection__cards-items">
+                    <img src="@item.pathImage" alt="" class="collection__cards-img">
+                    <p class="collection__cards-text">@item.name</p>
+                    <p class="collection__cards-desct">@item.price</p>
+                    <a href="#" class="section__btn">Buy</a>
+                </div>
+            }
         </div>
     </div>
 </section>
-
-<section class="collections">
-        <div class="container">
-            <div class="collection__inner">
-                <h1 class="collection__title section__title">
-                    Цена дуделок!
-                </h1>
-                <p class="collection__text">
-                    Risus commodo id odio turpis pharetra elementum. Pulvinar porta porta feugiat scelerisque in elit. Morbi rhoncus, tellus, eros consequat magna semper orci a tincidunt. 
-                </p>
-            </div>
-            <div class="collection__cards">
-                <div class="collection__cards-items">
-                    <img src="images/elfbar.webp" alt="" class="collection__cards-img">
-                    <p class="collection__cards-text">Elfbar1</p>
-                    <p class="collection__cards-desct">Magna in condimentum praesent pretium vitae mattis facilisis nunc. Lectus in ac ac.</p>
-                    <a href="#" class="section__btn">Buy</a>
-                </div>
-
-                <div class="collection__cards-items">
-                    <img src="images/elfbar.webp" alt="" class="collection__cards-img">
-                    <p class="collection__cards-text">Elfbar2</p>
-                    <p class="collection__cards-desct">Magna in condimentum praesent pretium vitae mattis facilisis nunc. Lectus in ac ac.</p>
-                    <a href="#" class="section__btn">Buy</a>
-                </div>
-
-                <div class="collection__cards-items">
-                    <img src="images/elfbar.webp" alt="" class="collection__cards-img">
-                    <p class="collection__cards-text">Elfbar3</p>
-                    <p class="collection__cards-desct">Sit aenean porttitor sit lectus. Adipiscing egestas etiam eget cursus nulla risus euismod. Netus.</p>
-                    <a href="#" class="section__btn">Buy</a>
-                </div>
-
-                <div class="collection__cards-items">
-                    <img src="images/elfbar.webp" alt="" class="collection__cards-img">
-                    <p class="collection__cards-text">Elfbar4</p>
-                    <p class="collection__cards-desct"> Faucibus odio elementum nulla venenatis, libero. Ullamcorper duis fringilla pulvinar nibh diam sit.</p>
-                    <a href="#" class="section__btn">Buy</a>
-                </div>
-
-                <div class="collection__cards-items">
-                    <img src="images/elfbar.webp" alt="" class="collection__cards-img">
-                    <p class="collection__cards-text">Elfbar5</p>
-                    <p class="collection__cards-desct">Magna in condimentum praesent pretium vitae mattis facilisis nunc. Lectus in ac ac.</p>
-                    <a href="#" class="section__btn">Buy</a>
-                </div>
-
-                <div class="collection__cards-items">
-                    <img src="images/elfbar.webp" alt="" class="collection__cards-img">
-                    <p class="collection__cards-text">Elfbar6</p>
-                    <p class="collection__cards-desct">Sit aenean porttitor sit lectus. Adipiscing egestas etiam eget cursus nulla risus euismod. Netus.</p>
-                    <a href="#" class="section__btn">Buy</a>
-                </div>
-
-                <div class="collection__cards-items">
-                    <img src="images/elfbar.webp" alt="" class="collection__cards-img">
-                    <p class="collection__cards-text">Elfbar1</p>
-                    <p class="collection__cards-desct">Faucibus odio elementum nulla venenatis, libero. Ullamcorper duis fringilla pulvinar nibh diam sit.</p>
-                    <a href="#" class="section__btn">Buy</a>
-                </div>
-
-                <div class="collection__cards-items">
-                    <img src="images/elfbar.webp" alt="" class="collection__cards-img">
-                    <p class="collection__cards-text">Elfbar1</p>
-                    <p class="collection__cards-desct">Magna in condimentum praesent pretium vitae mattis facilisis nunc. Lectus in ac ac.</p>
-                    <a href="#" class="section__btn">Buy</a>
-                </div>
-
-                <div class="collection__cards-items">
-                    <img src="images/elfbar.webp" alt="" class="collection__cards-img">
-                    <p class="collection__cards-text">Elfbar1</p>
-                    <p class="collection__cards-desct">Sit aenean porttitor sit lectus. Adipiscing egestas etiam eget cursus nulla risus euismod. Netus.</p>
-                    <a href="#" class="section__btn">Buy</a>
-                </div>
-
-            </div>   
-                
-        </div>
-        
-    </section>

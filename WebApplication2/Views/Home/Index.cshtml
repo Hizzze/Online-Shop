@@ -1,4 +1,4 @@
-﻿@model List<WebApplication2.Item>
+﻿@model HomeViewModel
 
 @{
     ViewData["Title"] = "Home Page";
@@ -11,7 +11,7 @@
             <p class="collection__text">Risus commodo id odio turpis pharetra elementum...</p>
         </div>
         <div class="collection__cards">
-            @foreach (var item in Model)
+            @foreach (var item in Model.Items)
             {
                 <div class="collection__cards-items">
                     <img src="@item.pathImage" alt="" class="collection__cards-img">

@@ -21,7 +21,7 @@ public class HomeController : Controller
             Items = items 
         };
 
-        return View(items);
+        return View(model);
     }
 
     public IActionResult Privacy()

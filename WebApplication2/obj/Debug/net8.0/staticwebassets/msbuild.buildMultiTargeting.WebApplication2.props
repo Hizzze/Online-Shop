@@ -1,7 +1,3 @@
 ﻿<Project>
-<<<<<<< HEAD
   <Import Project="..\build\WebApplication2.props" />
-=======
-  <Import Project="../build/WebApplication2.props" />
->>>>>>> de3ed18 (h1)
 </Project>

@@ -28,10 +28,10 @@ public class Database
             try
             {
                 await connection.OpenAsync();
-                using (var command = new MySqlCommand("SELECT COUNT(1) FROM users WHERE email = @value1", connection))
+                using (var command = connection.CreateCommand())
                 {
+                    command.CommandText = "SELECT COUNT(1) FROM users WHERE email = @value1";
                     command.Parameters.AddWithValue("@value1", email);
-
                     exists = Convert.ToInt32(await command.ExecuteScalarAsync()) > 0;
                 }
             }
@@ -42,18 +42,20 @@ public class Database
             return exists;
         }
     }
+
     public static async Task RegisterInDatabase(string email, string password)
     {
         using (var connection = new MySqlConnection(connectionString))
         {
-            password = Hash.Hash.HashPassword(password);
             try
             {
                 await connection.OpenAsync();
-                using (var command = new MySqlCommand("INSERT INTO users (email, password) VALUES(@value1, @value2)"))
+                using (var command = connection.CreateCommand())
                 {
+                    command.CommandText = "INSERT INTO users (email, password) VALUES(@value1, @value2)";
                     command.Parameters.AddWithValue("@value1", email);
                     command.Parameters.AddWithValue("@value2", password);
+                    await command.ExecuteNonQueryAsync();
                 }
             }
             catch (Exception ex)
@@ -63,4 +65,24 @@ public class Database
             }
         }
     }
+
+    /*public static async Task getAccountsList()
+    {
+        using (var connection = new MySqlConnection(connectionString))
+        {
+            try
+            {
+                await connection.OpenAsync();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = "SELECT "
+                }
+            }
+            catch (Exception ex)
+            {
+                await Logger.LogAsync("Error on getting accounts list: " + ex.Message, Logger.LogLevel.Error);
+                throw;
+            }
+        }
+    }*/
 }

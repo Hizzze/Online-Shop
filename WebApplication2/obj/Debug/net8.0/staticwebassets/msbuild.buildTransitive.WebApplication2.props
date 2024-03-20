@@ -1,3 +1,7 @@
 ﻿<Project>
+<<<<<<< HEAD
   <Import Project="..\buildMultiTargeting\WebApplication2.props" />
+=======
+  <Import Project="../buildMultiTargeting/WebApplication2.props" />
+>>>>>>> de3ed18 (h1)
 </Project>

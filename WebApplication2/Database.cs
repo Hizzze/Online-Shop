@@ -15,12 +15,14 @@ public class Database
             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
         IConfigurationRoot config = builder.Build();
         connectionString = config.GetConnectionString("DefaultConnection");
+        
     }
 
     public static async Task<bool> IsUserRegistered(string email)
     {
         
         using (var connection = new MySqlConnection(connectionString))
+            
         {
             bool exists = false;
             try

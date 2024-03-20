@@ -91,8 +91,20 @@ body{
   line-height: 20px;
   color: #000000;
 }
+
+.header_nameOfComp {
+  font-size: 18px;
+}
 .header__nav-item + .header__nav-item{
   margin-left: 20px;
+}
+.header_nameOfComp {
+  font-size: 24px;
+  color: #000;
+}
+.header__logo {
+  max-width: 100px;
+  margin-right: 100px;
 }
 
 .header__main{

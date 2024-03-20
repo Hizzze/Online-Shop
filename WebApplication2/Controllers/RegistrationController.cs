@@ -2,10 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebApplication2.Controllers;
 
-public class AuthorizationController : Controller
+public class RegistrationController : Controller
 {
-    // GET
-    public IActionResult Auth()
+    
+    public IActionResult Registration()
     {
         return View();
     }

@@ -82,7 +82,7 @@ public class Database
                         while (await reader.ReadAsync())
                         {
                             items.Add(new Item(reader.GetString(0), reader.GetDecimal(1), reader.GetInt32(2),
-                                reader.GetString(3)));
+                                reader.GetString(3), reader.GetString(4)));
                         }
                     }
                 }

@@ -45,38 +45,6 @@
       "PackagePath": "staticwebassets/images/shape4.png"
     },
     {
-      "Id": "C:\\Users\\1\\RiderProjects\\WebApplication2\\WebApplication2\\wwwroot\\images\\cart.svg",
-      "PackagePath": "staticwebassets\\images\\cart.svg"
-    },
-    {
-      "Id": "C:\\Users\\1\\RiderProjects\\WebApplication2\\WebApplication2\\wwwroot\\images\\elfbar.webp",
-      "PackagePath": "staticwebassets\\images\\elfbar.webp"
-    },
-    {
-      "Id": "C:\\Users\\1\\RiderProjects\\WebApplication2\\WebApplication2\\wwwroot\\images\\favorites.svg",
-      "PackagePath": "staticwebassets\\images\\favorites.svg"
-    },
-    {
-      "Id": "C:\\Users\\1\\RiderProjects\\WebApplication2\\WebApplication2\\wwwroot\\images\\logo.webp",
-      "PackagePath": "staticwebassets\\images\\logo.webp"
-    },
-    {
-      "Id": "C:\\Users\\1\\RiderProjects\\WebApplication2\\WebApplication2\\wwwroot\\images\\shape1.png",
-      "PackagePath": "staticwebassets\\images\\shape1.png"
-    },
-    {
-      "Id": "C:\\Users\\1\\RiderProjects\\WebApplication2\\WebApplication2\\wwwroot\\images\\shape2.png",
-      "PackagePath": "staticwebassets\\images\\shape2.png"
-    },
-    {
-      "Id": "C:\\Users\\1\\RiderProjects\\WebApplication2\\WebApplication2\\wwwroot\\images\\shape3.png",
-      "PackagePath": "staticwebassets\\images\\shape3.png"
-    },
-    {
-      "Id": "C:\\Users\\1\\RiderProjects\\WebApplication2\\WebApplication2\\wwwroot\\images\\shape4.png",
-      "PackagePath": "staticwebassets\\images\\shape4.png"
-    },
-    {
       "Id": "/Users/vlad/RiderProjects/WebApplication10/WebApplication2/wwwroot/js/site.js",
       "PackagePath": "staticwebassets/js/site.js"
     },

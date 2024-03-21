@@ -76,7 +76,7 @@ public class Database
                 await connection.OpenAsync();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "SELECT name, price, count, path FROM items";
+                    command.CommandText = "SELECT name, price, count, path, description FROM items";
                     using (var reader = await command.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())

@@ -1,24 +1,26 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication2.Models;
-
+using WebApplication2;
 namespace WebApplication2.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private MainControllerItems itemsObject;
+        
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, MainControllerItems itemsObject)
     {
         _logger = logger;
+        this.itemsObject = itemsObject;
     }
 
     public async Task<IActionResult> Index()
     {
-        var items = await Database.getItemsList();
         var model = new HomeViewModel
         {
-            Items = items 
+            Items = itemsObject.items
         };
 
         return View(model);

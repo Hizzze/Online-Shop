@@ -15,14 +15,14 @@ public class Database
             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
         IConfigurationRoot config = builder.Build();
         connectionString = config.GetConnectionString("DefaultConnection");
-        
+
     }
 
     public static async Task<bool> IsUserRegistered(string email)
     {
-        
+
         using (var connection = new MySqlConnection(connectionString))
-            
+
         {
             bool exists = false;
             try
@@ -39,6 +39,7 @@ public class Database
             {
                 await Logger.LogAsync("Error on check registration: " + ex.Message, Logger.LogLevel.Error);
             }
+
             return exists;
         }
     }
@@ -66,20 +67,44 @@ public class Database
         }
     }
 
-    public static async Task<List<Item>> getItemsList()
+    public static bool onBuyItem(string name, int count)
+    {
+        using (var connection = new MySqlConnection(connectionString))
+        {
+            try
+            {
+                connection.Open();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = "UPDATE items SET count = count - @value1 WHERE name = @value2";
+                    command.Parameters.AddWithValue("@value1", count);
+                    command.Parameters.AddWithValue("@value2", name);
+                    command.ExecuteNonQuery();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log("Error on buy item (database): " + ex.Message, Logger.LogLevel.Error);
+                return false;
+            }
+        }
+    }
+
+    public static List<Item> getItemsList()
     {
         List<Item> items = new List<Item>();
         using (var connection = new MySqlConnection(connectionString))
         {
             try
             {
-                await connection.OpenAsync();
+                connection.Open();
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText = "SELECT name, price, count, path, description FROM items";
-                    using (var reader = await command.ExecuteReaderAsync())
+                    using (var reader = command.ExecuteReader())
                     {
-                        while (await reader.ReadAsync())
+                        while (reader.Read())
                         {
                             items.Add(new Item(reader.GetString(0), reader.GetDecimal(1), reader.GetInt32(2),
                                 reader.GetString(3), reader.GetString(4)));
@@ -89,7 +114,7 @@ public class Database
             }
             catch (Exception ex)
             {
-                await Logger.LogAsync("Error on get items: " + ex.Message, Logger.LogLevel.Error);
+                Logger.LogAsync("Error on get items: " + ex.Message, Logger.LogLevel.Error);
                 throw;
             }
         }

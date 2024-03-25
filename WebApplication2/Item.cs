@@ -7,7 +7,7 @@ public class Item
     public int count;
     public string pathImage;
     public string description;
-    
+
     public Item(string name, decimal price, int count, string pathImage, string description)
     {
         this.name = name;
@@ -17,8 +17,23 @@ public class Item
         this.description = description;
     }
 
-    public static void loadItems()
+    public string getName()
     {
-        
+        return this.name;
+    }
+
+    public decimal getPrice()
+    {
+        return this.price;
+    }
+
+    public int getCount()
+    {
+        return this.count;
+    }
+
+    public void setCount(int count)
+    {
+        this.count = count;
     }
 }

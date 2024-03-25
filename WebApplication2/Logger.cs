@@ -32,5 +32,20 @@ namespace WebApplication2
                 Console.WriteLine($"An error occurred while logging: {ex.Message}");
             }
         }
+        public static void Log(string message, LogLevel level = LogLevel.Info)
+        {
+            try
+            {
+                using (var stream = new FileStream(logFilePath, FileMode.Append, FileAccess.Write, FileShare.None))
+                using (var writer = new StreamWriter(stream))
+                {
+                    writer.WriteLine($"{DateTime.Now} [{level.ToString()}]: {message}");
+                }
+            }
+            catch (Exception ex)
+            {
+                
+            }
+        }
     }
 }

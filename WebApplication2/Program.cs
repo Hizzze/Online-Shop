@@ -8,7 +8,7 @@ builder.Services.AddSingleton<MainControllerItems>();
 builder.Services.AddAuthentication("CookieAuth")
     .AddCookie("CookieAuth", options =>
     {
-        options.Cookie.Name = "Google Ads";
+        options.Cookie.Name = "UserAuthCookie";
         options.LoginPath = "/Login/Login";
         options.Cookie.HttpOnly = true;
         options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest; //Always = HTTPS ONLY, SameAsRequest = HTTP/HTTPS (On Request)

@@ -18,7 +18,7 @@ public class Account
 
     public async Task registerAccount()
     { 
-        Database.RegisterInDatabase(email, password);
+        await Database.RegisterInDatabase(email, password);
     }
     
 }

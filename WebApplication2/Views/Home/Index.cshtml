@@ -16,7 +16,7 @@
                 </h1>
                 <p class="header__text">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, ad blanditiis error harum illo illum iste, laudantium nobis numquam omnis qui quos rerum, voluptate. Autem dolore maiores molestias officia voluptas!
-                </p>
+                </p> 
                 <a href="#" class="header__section section__btn">Buy</a>
             </div>
         </div>
@@ -28,18 +28,45 @@
             <h1 class="collection__title section__title">Цена дуделок!</h1>
             <p class="collection__text">Risus commodo id odio turpis pharetra elementum...</p>
         </div>
-        <div class="collection__cards">
+        
+                <div class="collection__cards">
             @foreach (var item in Model.Items)
             {
-                <div class="collection__cards-items">
-                    <img src="@item.pathImage" alt="" class="collection__cards-img">
-                    <p class="collection__cards-text">@item.name</p>
-                    <p class="collection__cards-price">@item.price</p>
-                    <p class="collection__cards-desct">@item.description</p>
-                    
-                    <a href="#" class="section__btn">Buy</a>
-                </div>
+                
+                    <div class="col-md-8">
+                                        <div class="row" id="products-container">
+                                            <div class="col-md-6">
+                                                <div class="card mb-4" data-id="${item.id}">
+                                                    <img class="product-img" src="@item.pathImage" alt="">
+                                                    <div class="card-body text-center">
+                                                        <h4 class="item-title">@item.name</h4>
+                                                        @* <p><small data-items-in-box class="text-muted"></small></p>  COUNT*@ 
+                                            
+                                                        <div class="details-wrapper">
+                                            
+                                                            <!-- Счетчик -->
+                                                            <div class="items counter-wrapper">
+                                                                <div class="items__control" data-action="minus">-</div>
+                                                                <div class="items__current" data-counter>0</div>
+                                                                <div class="items__control" data-action="plus">+</div>
+                                                            </div>
+                                                            <!-- // Счетчик -->
+                                            
+                                                            <div class="price">
+                                                                <div class="price__currency">@item.price zł</div>
+                                                            </div>
+                                                        </div>
+                                            
+                                                        <button data-cart type="button" class="btn btn-block btn-outline-warning">
+                                                            do koszyka
+                                                        </button>
+                                            
+                                                    </div>
+                                                </div>
+                                                </div>
+                                        </div>
+                                    </div>
             }
+                </div>
         </div>
-    </div>
 </section>

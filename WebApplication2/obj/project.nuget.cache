@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "zkwm5Mg3hEG0/Ag73zkvZKLdYV3PFQRekTaGJ0HdqSuuEYN3yhD6gCHJmBCSKs3Ksv1sd/HI0GWE+QrOJiZQEw==",
+  "dgSpecHash": "/dp8rg4MMQBYqY5eDNhhzDsXDxMZzT+o+NNoWA//682bMEAlykbw16sXh57yCIYEwR6HQ1oDYeDtYwPmrPnIJw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\1\\RiderProjects\\WebApplication2\\WebApplication2\\WebApplication2.csproj",
+  "projectFilePath": "/Users/vlad/RiderProjects/WebApp/WebApplication2/WebApplication2.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\1\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\7.0.1\\microsoft.extensions.logging.abstractions.7.0.1.nupkg.sha512",
-    "C:\\Users\\1\\.nuget\\packages\\mysqlconnector\\2.3.6\\mysqlconnector.2.3.6.nupkg.sha512"
+    "/Users/vlad/.nuget/packages/microsoft.extensions.logging.abstractions/7.0.1/microsoft.extensions.logging.abstractions.7.0.1.nupkg.sha512",
+    "/Users/vlad/.nuget/packages/mysqlconnector/2.3.6/mysqlconnector.2.3.6.nupkg.sha512"
   ],
   "logs": []
 }

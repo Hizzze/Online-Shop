@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WebApplication2.Models;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
 
 namespace WebApplication2.Controllers;
 
@@ -13,14 +14,14 @@ public class LoginController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Login(string username, string password)
+    public async Task<IActionResult> Login(string email, string password)
     {
         
-        if (true)
+        if (Database.verifyUserData(email,password))
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, username)
+                new Claim(ClaimTypes.Name, email)
                 
             };
 

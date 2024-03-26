@@ -19,7 +19,7 @@ public class RegistrationController : Controller
         }
         Account account = new Account(model.Email, model.Password);
         account.registerAccount();
-        return Redirect("https://destarion.com");
+        return View(model);
     }
    
 }

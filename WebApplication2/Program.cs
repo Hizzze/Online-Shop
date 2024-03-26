@@ -9,7 +9,7 @@ builder.Services.AddAuthentication("CookieAuth")
     .AddCookie("CookieAuth", options =>
     {
         options.Cookie.Name = "UserAuthCookie";
-        options.LoginPath = "/Views/Registration";
+        options.LoginPath = "/Views/Login";
     });
 var app = builder.Build();
 

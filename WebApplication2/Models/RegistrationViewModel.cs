@@ -1,9 +1,12 @@
+using Microsoft.AspNetCore.Authorization;
+
 namespace WebApplication2.Models;
 
 using System.ComponentModel.DataAnnotations;
 
 public class RegistrationViewModel
 {
+    
     [Required]
     [EmailAddress]
     [MaxLength(255)]

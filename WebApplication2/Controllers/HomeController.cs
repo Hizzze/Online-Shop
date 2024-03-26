@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication2.Models;
 namespace WebApplication2.Controllers;
@@ -14,7 +15,7 @@ public class HomeController : Controller
         _logger = logger;
         this.itemsObject = itemsObject;
     }
-
+    
     public async Task<IActionResult> Index()
     {
         var model = new HomeViewModel

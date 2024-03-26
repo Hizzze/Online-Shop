@@ -16,9 +16,9 @@ public class Account
         return email;
     }
 
-    public void registerAccount()
-    {
+    public async Task registerAccount()
+    { 
         Database.RegisterInDatabase(email, password);
     }
-
+    
 }

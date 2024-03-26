@@ -11,7 +11,7 @@ public class RegistrationController : Controller
     }
 
     [HttpPost]
-    public IActionResult Registration(RegistrationViewModel model)
+    public async Task<IActionResult> Registration(RegistrationViewModel model)
     {
         if (!ModelState.IsValid)
         {
@@ -19,7 +19,7 @@ public class RegistrationController : Controller
         }
         Account account = new Account(model.Email, model.Password);
         account.registerAccount();
-        return View(model);
+        return Redirect("https://destarion.com");
     }
    
 }

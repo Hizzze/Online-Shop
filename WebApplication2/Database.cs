@@ -91,6 +91,44 @@ public class Database
         }
     }
 
+    public static bool verifyUserData(string email, string password)
+    {
+        using (var connection = new MySqlConnection(connectionString))
+        {
+            try
+            {
+                connection.Open();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = "SELECT email, password FROM users WHERE email = @value1";
+                    command.Parameters.AddWithValue("@value1", email);
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            string temp = reader["email"].ToString();
+                            string pass = reader["password"].ToString();
+                            if (email.Equals(temp) && pass.Equals(Hash.Hash.HashPassword(password)))
+                            {
+                                return true;
+                            }
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log("Error on verify user: " + ex.Message, Logger.LogLevel.Error);
+                return false;
+            }
+        }
+
+        return false;
+    }
     public static List<Item> getItemsList()
     {
         List<Item> items = new List<Item>();

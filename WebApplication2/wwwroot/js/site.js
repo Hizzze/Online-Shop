@@ -1,53 +1,59 @@
 ﻿window.addEventListener('click', function (event) {
+    // Находим счетчик товаров в корзине
+    const counterCart = document.querySelector('.counter__cart');
 
-    // Объявляем переменную для счетчика
-    let counter;
-
-    // Проверяем клик строго по кнопкам Плюс либо Минус
-    if (event.target.dataset.action === 'plus' || event.target.dataset.action === 'minus') {
-        // Находим обертку счетчика
-        const counterWrapper = event.target.closest('.counter-wrapper');
-        // Находим див с числом счетчика
-        counter = counterWrapper.querySelector('[data-counter]');
-    }
-
-    // Проверяем является ли элемент по которому был совершен клик кнопкой Плюс
+    // Обработка нажатия на кнопку "плюс"
     if (event.target.dataset.action === 'plus') {
-        
-        if(counter.innerText <= 9){
-        counter.innerText = ++counter.innerText;
-            
+        // Получаем текущее количество товаров в корзине
+        let currentCount = parseInt(counterCart.innerText);
+        // Увеличиваем количество товаров на 1, если не достигнуто максимальное значение
+        if (currentCount < 20) {
+            counterCart.innerText = currentCount + 1;
         }
     }
 
-    // Проверяем является ли элемент по которому был совершен клик кнопкой Минус
+    // Обработка нажатия на кнопку "минус"
     if (event.target.dataset.action === 'minus') {
-
-        // Проверяем чтобы счетчик был больше 1
-        if (parseInt(counter.innerText) > 0) {
-            // Изменяем текст в счетчике уменьшая его на 1
-            counter.innerText = --counter.innerText;
-        } else if (event.target.closest('.cart-wrapper') && parseInt(counter.innerText) === 1) {
-            // Проверка на товар который находится в корзине
-            console.log('IN CART!!!!');
-            // Удаляем товар из корзины
-            event.target.closest('.cart-item').remove();
-
-            // Отображение статуса корзины Пустая / Полная
-            toggleCartStatus();
-
-            // Пересчет общей стоимости товаров в корзине
-            calcCartPriceAndDelivery();
+        // Получаем текущее количество товаров в корзине
+        let currentCount = parseInt(counterCart.innerText);
+        // Уменьшаем количество товаров на 1, если оно больше 0
+        if (currentCount > 0) {
+            counterCart.innerText = currentCount - 1;
         }
-
-    }
-
-    // Проверяем клик на + или - внутри коризины
-    if (event.target.hasAttribute('data-action') && event.target.closest('.cart-wrapper')) {
-        // Пересчет общей стоимости товаров в корзине
-        calcCartPriceAndDelivery();
     }
 });
+
+// Получаем все элементы с классом "items__control" в каждой карточке продукта
+const itemControls = document.querySelectorAll('.items__control');
+
+// Перебираем все найденные элементы
+itemControls.forEach(function(itemControl) {
+    // Добавляем обработчик события для каждого элемента
+    itemControl.addEventListener('click', function(event) {
+        // Находим родительский элемент карточки продукта
+        const cardBody = event.target.closest('.card-body');
+        // Находим счетчик внутри данной карточки продукта
+        const counter = cardBody.querySelector('.items__current');
+        // Получаем текущее значение счетчика
+        let currentValue = parseInt(counter.innerText);
+
+        // Если была нажата кнопка "плюс"
+        if (event.target.dataset.action === 'plus') {
+            // Увеличиваем значение счетчика на 1, если не достигнут максимум
+            if (currentValue < 20) {
+                counter.innerText = currentValue + 1;
+            }
+        }
+        // Если была нажата кнопка "минус"
+        else if (event.target.dataset.action === 'minus') {
+            // Уменьшаем значение счетчика на 1, если не достигнут минимум
+            if (currentValue > 0) {
+                counter.innerText = currentValue - 1;
+            }
+        }
+    });
+});
+
 
 
 

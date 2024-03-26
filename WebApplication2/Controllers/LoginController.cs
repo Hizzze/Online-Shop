@@ -16,23 +16,20 @@ public class LoginController : Controller
     [HttpPost]
     public async Task<IActionResult> Login(string email, string password)
     {
-        
-        if (Database.verifyUserData(email,password))
+        if (Database.verifyUserData(email, password))
         {
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, email)
-                
-            };
-
+            var claims = new List<Claim> { new Claim(ClaimTypes.Name, email) };
             var claimsIdentity = new ClaimsIdentity(claims, "CookieAuth");
             var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
 
             await HttpContext.SignInAsync("CookieAuth", claimsPrincipal);
 
-            return RedirectToAction("Index", "Home"); // Перенаправляет пользователя после успешного входа
+            return RedirectToAction("Index", "Home"); // Перенаправление после успешного входа
         }
-
-        return View(); // В случае ошибки возвращаемся на страницу входа
+        else
+        {
+            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+            return View();
+        }
     }
 }

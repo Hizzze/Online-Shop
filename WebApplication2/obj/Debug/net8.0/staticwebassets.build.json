@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "nAMcGNplZZyZeVFOctXzs+cWmG4l3oA2PAXA8vLzOl4=",
+  "Hash": "EqRFpveHi/DSlvhJffD+jKcF58SE2LPsXti4rUcXS+M=",
   "Source": "WebApplication2",
   "BasePath": "_content/WebApplication2",
   "Mode": "Default",
@@ -167,25 +167,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\logo.webp"
-    },
-    {
-      "Identity": "C:\\Users\\1\\RiderProjects\\WebApplication2\\WebApplication2\\wwwroot\\images\\logo2.webp",
-      "SourceId": "WebApplication2",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\1\\RiderProjects\\WebApplication2\\WebApplication2\\wwwroot\\",
-      "BasePath": "_content/WebApplication2",
-      "RelativePath": "images/logo2.webp",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\logo2.webp"
     },
     {
       "Identity": "C:\\Users\\1\\RiderProjects\\WebApplication2\\WebApplication2\\wwwroot\\images\\shape1.png",

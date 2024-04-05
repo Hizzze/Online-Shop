@@ -17,57 +17,137 @@
                 <p class="header__text">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, ad blanditiis error harum illo illum iste, laudantium nobis numquam omnis qui quos rerum, voluptate. Autem dolore maiores molestias officia voluptas!
                 </p> 
-                <a href="#" class="header__section section__btn">Buy</a>
+                <a href="#collections"  class="header__section section__btn">Buy</a>
             </div>
         </div>
     </div>
 </section>
-<section class="collections">
+<section class="collections" id="collections">
     <div class="container">
         <div class="collection__inner">
             <h1 class="collection__title section__title">Цена дуделок!</h1>
             <p class="collection__text">Risus commodo id odio turpis pharetra elementum...</p>
         </div>
         
-                <div class="collection__cards">
+        <div class="collection__cards">
             @foreach (var item in Model.Items)
             {
                 
-                    <div class="col-md-8">
-                                        <div class="row" id="products-container">
-                                            <div class="col-md-4">
-                                                <div class="card mb-4" data-id="${item.id}">
-                                                    <img class="product-img" src="@item.pathImage" alt="">
-                                                    <div class="card-body text-center">
-                                                        <h4 class="item-title">@item.name</h4>
-                                                        <p class="collection__cards-desct"><small>@item.description</small></p>
-                                                        <p class="cart-item__weight"><small data-items-in-box class="text-muted">@item.count szt.</small></p> 
+                <div class="col-md-8">
+                    <div class="row" id="products-container">
+                        <div class="col-md-4">
+                            <div class="card mb-4" data-id="${item.id}">
+                                <img class="product-img" src="@item.pathImage" alt="">
+                                <div class="card-body text-center">
+                                    <h4 class="item-title">@item.name</h4>
+                                    <p class="collection__cards-desct"><small>@item.description</small></p>
+                                    <p class="cart-item__weight"><small data-items-in-box class="text-muted">@item.count szt.</small></p> 
                                             
-                                                        <div class="details-wrapper">
+                                    <div class="details-wrapper">
                                             
-                                                            <!-- Счетчик -->
-                                                            <div class="items counter-wrapper">
-                                                                <div class="items__control" data-action="minus">-</div>
-                                                                <div class="items__current" data-counter>0</div>
-                                                                <div class="items__control" data-action="plus">+</div>
-                                                            </div>
-                                                            <!-- // Счетчик -->
+                                        <!-- Счетчик -->
+                                        <div class="items counter-wrapper">
+                                            <div class="items__control" data-action="minus">-</div>
+                                            <div class="items__current" data-counter>0</div>
+                                            <div class="items__control" data-action="plus">+</div>
+                                        </div>
+                                        <!-- // Счетчик -->
                                             
-                                                            <div class="price">
-                                                                <div class="price__currency">@item.price zł</div>
-                                                            </div>
-                                                        </div>
-                                            
-                                                        <button data-cart type="button" class="btn btn-block btn-outline-warning">
-                                                            do koszyka
-                                                        </button>
-                                            
-                                                    </div>
-                                                </div>
-                                                </div>
+                                        <div class="price">
+                                            <div class="price__currency">@item.price zł</div>
                                         </div>
                                     </div>
-            }
+                                            
+                                    <button data-cart type="button" class="btn btn-block btn-outline-warning">
+                                        do koszyka
+                                    </button>
+                                            
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            }
         </div>
+    </div>
 </section>
+<section class="asked">
+        <div class="container">
+            <div class="asked__inner">
+                <div class="asked__leftside">
+                    <h1 class="asked__title section__title">
+                        Frequently Asked Que stions
+                    </h1>
+                    <p class="asked__text">
+                        Risus commodo id odio turpis pharetra elementum. Pulvinar porta porta feugiat scelerisque in elit. Morbi rhoncus, tellus, eros consequat magna semper orci a tincidunt. 
+                    </p>
+                </div>
+                <div class="asked__rightside">
+                    <div class="asked__box">
+                        <p>What kind of websites I can build with Zeus UI?</p>
+                    <svg id="btn" width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.9 1.1999C10.5 0.799902 9.89999 0.799902 9.49999 1.1999L5.99999 4.6999L2.49999 1.1999C2.09999 0.799902 1.49999 0.799902 1.09999 1.1999C0.699988 1.5999 0.699988 2.1999 1.09999 2.5999L5.29999 6.7999C5.49999 6.9999 5.69999 7.0999 5.99999 7.0999C6.29999 7.0999 6.49999 6.9999 6.69999 6.7999L10.9 2.5999C11.3 2.1999 11.3 1.5999 10.9 1.1999Z" fill="#9F7AEA"/>
+                    </svg>
+                    <span class="span" style="max-height: 0;">This FAQ section is now in the expanded state, so you see how it looks. Rhoncus sed facilisi sed amet. Tristique commodo sodales.</span>
+                    </div>
+
+                    <div class="asked__box">
+                        <p>HWhat makes Zeus UI literally the best Web UI kit in the Internet?</p>
+                    <svg id="btn" width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.9 1.1999C10.5 0.799902 9.89999 0.799902 9.49999 1.1999L5.99999 4.6999L2.49999 1.1999C2.09999 0.799902 1.49999 0.799902 1.09999 1.1999C0.699988 1.5999 0.699988 2.1999 1.09999 2.5999L5.29999 6.7999C5.49999 6.9999 5.69999 7.0999 5.99999 7.0999C6.29999 7.0999 6.49999 6.9999 6.69999 6.7999L10.9 2.5999C11.3 2.1999 11.3 1.5999 10.9 1.1999Z" fill="#9F7AEA"/>
+                    </svg>
+                    <span class="span" style="max-height: 0;">This FAQ section is now in the expanded state, so you see how it looks. Rhoncus sed facilisi sed amet. Tristique commodo sodales.</span>
+                    </div>
+
+                    <div class="asked__box">
+                        <p>How much does Zeus UI cost?</p>
+                    <svg id="btn" width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.9 1.1999C10.5 0.799902 9.89999 0.799902 9.49999 1.1999L5.99999 4.6999L2.49999 1.1999C2.09999 0.799902 1.49999 0.799902 1.09999 1.1999C0.699988 1.5999 0.699988 2.1999 1.09999 2.5999L5.29999 6.7999C5.49999 6.9999 5.69999 7.0999 5.99999 7.0999C6.29999 7.0999 6.49999 6.9999 6.69999 6.7999L10.9 2.5999C11.3 2.1999 11.3 1.5999 10.9 1.1999Z" fill="#9F7AEA"/>
+                    </svg>
+                    <span class="span" style="max-height: 0;">This FAQ section is now in the expanded state, so you see how it looks. Rhoncus sed facilisi sed amet. Tristique commodo sodales.</span>
+                    </div>
+
+                    <div class="asked__box">
+                        <p>How long will you support Zeus UI?</p>
+                    <svg id="btn" width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.9 1.1999C10.5 0.799902 9.89999 0.799902 9.49999 1.1999L5.99999 4.6999L2.49999 1.1999C2.09999 0.799902 1.49999 0.799902 1.09999 1.1999C0.699988 1.5999 0.699988 2.1999 1.09999 2.5999L5.29999 6.7999C5.49999 6.9999 5.69999 7.0999 5.99999 7.0999C6.29999 7.0999 6.49999 6.9999 6.69999 6.7999L10.9 2.5999C11.3 2.1999 11.3 1.5999 10.9 1.1999Z" fill="#9F7AEA"/>
+                    </svg>
+                    <span class="span" style="max-height: 0;">This FAQ section is now in the expanded state, so you see how it looks. Rhoncus sed facilisi sed amet. Tristique commodo sodales.</span>
+                    </div>
+
+                    <div class="asked__box">
+                        <p>How much does Zeus UI cost?</p>
+                    <svg id="btn" width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.9 1.1999C10.5 0.799902 9.89999 0.799902 9.49999 1.1999L5.99999 4.6999L2.49999 1.1999C2.09999 0.799902 1.49999 0.799902 1.09999 1.1999C0.699988 1.5999 0.699988 2.1999 1.09999 2.5999L5.29999 6.7999C5.49999 6.9999 5.69999 7.0999 5.99999 7.0999C6.29999 7.0999 6.49999 6.9999 6.69999 6.7999L10.9 2.5999C11.3 2.1999 11.3 1.5999 10.9 1.1999Z" fill="#9F7AEA"/>
+                    </svg>
+                    <span class="span" style="max-height: 0;">This FAQ section is now in the expanded state, so you see how it looks. Rhoncus sed facilisi sed amet. Tristique commodo sodales.</span>
+                    </div>
+
+                    <div class="asked__box">
+                        <p>Can I use Zeus UI in commercial projects?</p>
+                    <svg id="btn" width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.9 1.1999C10.5 0.799902 9.89999 0.799902 9.49999 1.1999L5.99999 4.6999L2.49999 1.1999C2.09999 0.799902 1.49999 0.799902 1.09999 1.1999C0.699988 1.5999 0.699988 2.1999 1.09999 2.5999L5.29999 6.7999C5.49999 6.9999 5.69999 7.0999 5.99999 7.0999C6.29999 7.0999 6.49999 6.9999 6.69999 6.7999L10.9 2.5999C11.3 2.1999 11.3 1.5999 10.9 1.1999Z" fill="#9F7AEA"/>
+                    </svg>
+                    <span class="span" style="max-height: 0;">This FAQ section is now in the expanded state, so you see how it looks. Rhoncus sed facilisi sed amet. Tristique commodo sodales.</span>
+                    </div>
+
+                    <div class="asked__box">
+                        <p>Could you make me a website using Zeus UI?</p>
+                    <svg id="btn" width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.9 1.1999C10.5 0.799902 9.89999 0.799902 9.49999 1.1999L5.99999 4.6999L2.49999 1.1999C2.09999 0.799902 1.49999 0.799902 1.09999 1.1999C0.699988 1.5999 0.699988 2.1999 1.09999 2.5999L5.29999 6.7999C5.49999 6.9999 5.69999 7.0999 5.99999 7.0999C6.29999 7.0999 6.49999 6.9999 6.69999 6.7999L10.9 2.5999C11.3 2.1999 11.3 1.5999 10.9 1.1999Z" fill="#9F7AEA"/>
+                    </svg>
+                    <span class="span" style="max-height: 0;">This FAQ section is now in the expanded state, so you see how it looks. Rhoncus sed facilisi sed amet. Tristique commodo sodales.</span>
+                    </div>
+
+                    <div class="asked__box">
+                        <p>Is that easy to design a website with Zeus UI?</p>
+                    <svg id="btn" width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.9 1.1999C10.5 0.799902 9.89999 0.799902 9.49999 1.1999L5.99999 4.6999L2.49999 1.1999C2.09999 0.799902 1.49999 0.799902 1.09999 1.1999C0.699988 1.5999 0.699988 2.1999 1.09999 2.5999L5.29999 6.7999C5.49999 6.9999 5.69999 7.0999 5.99999 7.0999C6.29999 7.0999 6.49999 6.9999 6.69999 6.7999L10.9 2.5999C11.3 2.1999 11.3 1.5999 10.9 1.1999Z" fill="#9F7AEA"/>
+                    </svg>
+                    <span class="span" style="max-height: 0;">This FAQ section is now in the expanded state, so you see how it looks. Rhoncus sed facilisi sed amet. Tristique commodo sodales.</span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>

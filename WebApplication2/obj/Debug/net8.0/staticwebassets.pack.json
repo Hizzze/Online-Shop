@@ -49,6 +49,18 @@
       "PackagePath": "staticwebassets/images/shopping-basket-wight.svg"
     },
     {
+      "Id": "/Users/vlad/RiderProjects/WebApp/WebApplication2/wwwroot/js/ScrollSmoother.min.js",
+      "PackagePath": "staticwebassets/js/ScrollSmoother.min.js"
+    },
+    {
+      "Id": "/Users/vlad/RiderProjects/WebApp/WebApplication2/wwwroot/js/ScrollTrigger.min.js",
+      "PackagePath": "staticwebassets/js/ScrollTrigger.min.js"
+    },
+    {
+      "Id": "/Users/vlad/RiderProjects/WebApp/WebApplication2/wwwroot/js/gsap.min.js",
+      "PackagePath": "staticwebassets/js/gsap.min.js"
+    },
+    {
       "Id": "/Users/vlad/RiderProjects/WebApp/WebApplication2/wwwroot/js/site.js",
       "PackagePath": "staticwebassets/js/site.js"
     },

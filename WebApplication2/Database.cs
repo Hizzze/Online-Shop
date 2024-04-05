@@ -30,7 +30,7 @@ public class Database
                 await connection.OpenAsync();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "SELECT COUNT(1) FROM users WHERE email = @value1";
+                    command.CommandText = "SELECT COUNT(1) FROM accounts WHERE email = @value1";
                     command.Parameters.AddWithValue("@value1", email);
                     exists = Convert.ToInt32(await command.ExecuteScalarAsync()) > 0;
                 }
@@ -53,7 +53,7 @@ public class Database
                 await connection.OpenAsync();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "INSERT INTO users (email, password) VALUES(@value1, @value2)";
+                    command.CommandText = "INSERT INTO accounts (email, password) VALUES(@value1, @value2)";
                     command.Parameters.AddWithValue("@value1", email);
                     command.Parameters.AddWithValue("@value2", password);
                     await command.ExecuteNonQueryAsync();
@@ -100,7 +100,7 @@ public class Database
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "SELECT email, password FROM users WHERE email = @value1";
+                    command.CommandText = "SELECT email, password FROM accounts WHERE email = @value1";
                     command.Parameters.AddWithValue("@value1", email);
                     using (var reader = command.ExecuteReader())
                     {

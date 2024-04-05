@@ -4,7 +4,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddSingleton<MainControllerItems>();   
+builder.Services.AddSingleton<MainControllerItems>();
+builder.Services.AddSingleton<MainControllerUsers>();
 builder.Services.AddAuthentication("CookieAuth")
     .AddCookie("CookieAuth", options =>
     {

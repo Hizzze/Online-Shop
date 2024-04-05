@@ -1,6 +1,7 @@
 using System.ComponentModel.Design;
 using Microsoft.Extensions.Configuration;
 using Hash;
+using Microsoft.Extensions.Logging.Configuration;
 using MySqlConnector;
 namespace WebApplication2;
 
@@ -22,7 +23,6 @@ public class Database
     {
 
         using (var connection = new MySqlConnection(connectionString))
-
         {
             bool exists = false;
             try
@@ -91,20 +91,20 @@ public class Database
         }
     }
 
-    public static bool verifyUserData(string email, string password)
+    public static async Task<bool> verifyUserData(string email, string password)
     {
         using (var connection = new MySqlConnection(connectionString))
         {
             try
             {
-                connection.Open();
+                await connection.OpenAsync();
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText = "SELECT email, password FROM accounts WHERE email = @value1";
                     command.Parameters.AddWithValue("@value1", email);
-                    using (var reader = command.ExecuteReader())
+                    using (var reader = await command.ExecuteReaderAsync())
                     {
-                        if (reader.Read())
+                        if (await reader.ReadAsync())
                         {
                             string temp = reader["email"].ToString();
                             string pass = reader["password"].ToString();
@@ -122,7 +122,7 @@ public class Database
             }
             catch (Exception ex)
             {
-                Logger.Log("Error on verify user: " + ex.Message, Logger.LogLevel.Error);
+                await Logger.LogAsync("Error on verify user: " + ex.Message, Logger.LogLevel.Error);
                 return false;
             }
         }
@@ -158,6 +158,38 @@ public class Database
         }
 
         return items;
+    }
+
+    public static async Task<(string?, string?, string?, string?)> getUserInfoDatabase(string email)
+    {
+        using (var connection = new MySqlConnection(connectionString))
+        {
+            try
+            {
+                await connection.OpenAsync();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = "SELECT name, phone, address, postalcode FROM users WHERE email = @value1";
+                    command.Parameters.AddWithValue("@value1", email);
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        if (await reader.ReadAsync())
+                        {
+                            return (reader.IsDBNull(reader.GetOrdinal("name")) ? "null" : reader["name"].ToString(),
+                                reader.IsDBNull(reader.GetOrdinal("phone")) ? "null" : reader["phone"].ToString(),
+                                reader.IsDBNull(reader.GetOrdinal("address")) ? "null" : reader["address"].ToString(),
+                                reader.IsDBNull(reader.GetOrdinal("postalcode")) ? "null" : reader["postalcode"].ToString());
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                await Logger.LogAsync("Error on getting user info DB: " + ex.Message, Logger.LogLevel.Error);
+            }
+        }
+
+        return ("null", "null", "null", "null");
     }
     /*public static async Task getAccountsList()
     {

@@ -5,7 +5,6 @@ namespace WebApplication2.Controllers;
 
 public class RegistrationController : Controller
 {
-    // [Authorize]
     public IActionResult Registration()
     {
         return View();

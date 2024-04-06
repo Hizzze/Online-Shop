@@ -21,7 +21,16 @@
                     <img src="../images/logo.webp" class="header__logo">
 
                 <div class="header__nav-right">
-                    <a class="header__nav-item" asp-controller="Login" asp-action="Login">Login</a>
+                   @if (User.Identity.IsAuthenticated)
+                      {
+                          <a class="headernav-item" asp-controller="Login" asp-action="Profile">@User.Identity.Name</a>
+                          <a class="header__nav-item" asp-controller="Login" asp-action="Logout">Logout</a>
+                      }
+                      else
+                      {
+                          <a class="header__nav-item" asp-controller="Registration" asp-action="Registration">Rejestracja</a>
+                          <a class="header__nav-item" asp-controller="Login" asp-action="Login">Login</a>
+                      }
                 </div>
                 
                 <ul class="user-nav">

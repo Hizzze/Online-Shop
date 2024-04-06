@@ -7,8 +7,8 @@ public class User
     public string? phone;
     public string? address;
     public string? postalCode;
-    public List<Item> cart;
-
+    public HashSet<Item> cart = new HashSet<Item>();
+    
     public User(string email)
     {
         this.email = email;
@@ -28,5 +28,13 @@ public class User
     public override int GetHashCode()
     {
         return email.GetHashCode();
+    }
+
+    public async Task addItemToCart(Item item)
+    {
+        if (cart.Contains(item))
+        {
+            
+        }
     }
 }

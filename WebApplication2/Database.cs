@@ -164,33 +164,10 @@ public class Database
     {
         using (var connection = new MySqlConnection(connectionString))
         {
-            bool exists;
             try
             {
                 await connection.OpenAsync();
-                using (var command = connection.CreateCommand())
-                {
-                    command.CommandText =
-                        "SELECT COUNT(1) FROM users_carts WHERE email = @value1 && item_name = @value2";
-                    command.Parameters.AddWithValue("@value1", email);
-                    command.Parameters.AddWithValue("@value2", itemName);
-                    exists = Convert.ToInt32(await command.ExecuteScalarAsync()) > 0;
-                }
-
-                if (exists)
-                {
-                    using (var command = connection.CreateCommand())
-                    {
-                        command.CommandText =
-                            "UPDATE users_carts SET count = @value1 WHERE email = @value2 && item_name = @value3";
-                        command.Parameters.AddWithValue("@value1", count);
-                        command.Parameters.AddWithValue("@value2", email);
-                        command.Parameters.AddWithValue("@value3", itemName);
-                        await command.ExecuteNonQueryAsync();
-                    }
-                }
-                else
-                {
+                
                     using (var command = connection.CreateCommand())
                     {
                         command.CommandText =
@@ -201,11 +178,36 @@ public class Database
                         command.Parameters.AddWithValue("@value4", price);
                         await command.ExecuteNonQueryAsync();
                     }
-                }
+                
             }
             catch (Exception ex)
             {
                 await Logger.LogAsync("Error on add item to cart DB:" + ex.Message, Logger.LogLevel.Error);
+                throw;
+            }
+        }
+    }
+    
+    public static async Task UpdateItemInCart(string email, string itemName, int count)
+    {
+        using (var connection = new MySqlConnection(connectionString))
+        {
+            try
+            {
+                await connection.OpenAsync();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText =
+                        "UPDATE users_carts SET count = @value1 WHERE email = @value2 && item_name = @value3";
+                    command.Parameters.AddWithValue("@value1", count);
+                    command.Parameters.AddWithValue("@value2", email);
+                    command.Parameters.AddWithValue("@value3", itemName);
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                await Logger.LogAsync("Error on update item in cart DB:" + ex.Message, Logger.LogLevel.Error);
                 throw;
             }
         }

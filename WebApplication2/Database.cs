@@ -170,6 +170,7 @@ public class Database
                 
                     using (var command = connection.CreateCommand())
                     {
+                        await Logger.LogAsync("123123123", Logger.LogLevel.Info);
                         command.CommandText =
                             "INSERT INTO users_carts (email, item_name, count, price) VALUES (@value1, @value2,@value3,@value4)";
                         command.Parameters.AddWithValue("@value1", email);
@@ -188,7 +189,7 @@ public class Database
         }
     }
     
-    public static async Task UpdateItemInCart(string email, string itemName, int count)
+    public static async Task updateItemInCart(string email, string itemName, int count)
     {
         using (var connection = new MySqlConnection(connectionString))
         {

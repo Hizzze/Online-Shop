@@ -48,7 +48,7 @@
                                         <!-- Счетчик -->
                                         <div class="items counter-wrapper">
                                             <div class="items__control" data-action="minus">-</div>
-                                            <div class="items__current" data-counter>0</div>
+                                            <div class="items__current" data-counter>@item.userCount</div>
                                             <div class="items__control" data-action="plus">+</div>
                                         </div>
                                         <!-- // Счетчик -->
@@ -58,9 +58,11 @@
                                         </div>
                                     </div>
                                             
-                                    <button data-cart type="button" class="btn btn-block btn-outline-warning">
-                                        do koszyka
-                                    </button>
+                                    <form asp-controller="Buy" asp-action="addToCart" method="post">
+                                                                <input type="hidden" name="name" value="@item.name" />
+                                                                <input type="hidden" name="userCount" value="@item.userCount" />
+                                                                <button type="submit" class="btn btn-block btn-outline-warning">do koszyka</button>
+                                                            </form>
                                             
                                 </div>
                             </div>

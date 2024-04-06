@@ -28,9 +28,8 @@ public class LoginController : Controller
             var claims = new List<Claim> { new Claim(ClaimTypes.Name, email) };
             var claimsIdentity = new ClaimsIdentity(claims, "CookieAuth");
             var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-
             await HttpContext.SignInAsync("CookieAuth", claimsPrincipal);
-
+            mainControllerUsers.addUserToList(email);
             return RedirectToAction("Index", "Home"); // Перенаправление после успешного входа
         }
         else

@@ -20,4 +20,8 @@ public class MainControllerUsers
         }
         return user;
     }
+    public User getUser(string email)
+    {
+        return userList.FirstOrDefault(u => u.email == email);
+    }
 }

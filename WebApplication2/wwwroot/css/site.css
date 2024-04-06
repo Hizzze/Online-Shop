@@ -1,6 +1,7 @@
 html {
   font-size: 14px;
   background-color: #F8F9F9;
+  scroll-behavior: smooth;
 }
 ul{
   list-style: none;
@@ -281,7 +282,7 @@ body{
 .collection__cards-img{
   margin-bottom: 20px;
   align-items: center;
-  
+
 }
 .collection__cards-items{
   max-width: 412px;
@@ -421,7 +422,7 @@ body{
   height: 632px;
   padding-top: 80px;
   transform: translateY(-7%);
-  background: #fff;
+  background: #000;
 }
 
 .asked__inner{
@@ -431,11 +432,13 @@ body{
 
 .asked__title{
   max-width: 412px;
+  color: #FFFFFF;
   margin-bottom: 25px;
 }
 
 .asked__text{
   max-width: 412px;
+  color: #FFFFFF;
 }
 
 .asked__rightside{
@@ -461,7 +464,7 @@ body{
   font-weight: 500;
   font-size: 20px;
   line-height: 26px;
-  color: #000000;
+  color: #532C59;
   opacity: 0.8;
   margin: 0;
   padding-bottom: 12px;
@@ -479,69 +482,13 @@ body{
   font-size: 14px;
   line-height: 20px;
   overflow: hidden;
+  color: #532C59;
   display: flex;
   transition: 0.3s;
 }
 
-/* Section Sell */
 
-.sell{
-  margin-bottom: 170px;
-}
-.sell__box{
-  text-align: center;
-  align-items: center;
-  padding-top: 117px;
-  padding-bottom: 117px;
-  max-width: 1300px;
-  height: 446px;
-  background: #FCFAFF;
-  border: 1px solid #D6BCFA;
-  box-shadow: inset 0px 0px 50px #F8E0FA;
-  border-radius: 60px;
-  position: relative;
 
-}
-.sell__title{
-  margin-bottom: 15px;
-}
-.sell_text{
-  max-width: 710px;
-  margin: 0 auto;
-}
-
-.sell__btn{
-  margin-top: 30px;
-  margin-bottom: 0;
-}
-
-.img--1,.img--2,.img--3,.img--4{
-  position: absolute;
-}
-.img--1{
-
-  left: 990px;
-  top: 20px;
-}
-.img--2{
-  left: 120px;
-  top: 20px;
-}
-.img--4{
-  left: 20px;
-  top: 200px;
-}
-
-.img--3{
-  left: 920px;
-  top: 220px;
-  height: 200px;
-}
-
-/* Section footer */
-.footer{
-
-}
 .footer__nav{
   display: flex;
   justify-content: space-between;
@@ -956,11 +903,6 @@ h2 {
   transition: .5s ease;
 }
 
-.input-check:checked~.input-box .icon {
-  color: #00f7ff;
-  filter: drop-shadow(0 0 5px #00f7ff);
-}
-
 .remember-forgot {
   color: #fff;
   font-size: .9em;
@@ -1246,4 +1188,21 @@ button {
   color: #FFF;
   background-color: #532C59;
   border-color: #532C59;
+}
+
+.reg-acc {
+  color: #fff;
+  transition: all .3s ease;
+  font-weight: 800;
+}
+.reg-acc:hover {
+  color: #532C59;
+}
+.dnh-acc {
+  margin-top: 25px;
+  text-align: center;
+}
+.notreg__inner {
+  margin-top: 25px;
+  text-align: center;
 }

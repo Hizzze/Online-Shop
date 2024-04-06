@@ -23,7 +23,8 @@ public class BuyController : Controller
     [HttpPost]
     public async Task<IActionResult> addToCart(string name, int count)
     {
-        var user = users.getUser(User.Identity.Name);
+        
+        var user = await users.getUser(User.Identity.Name);
         await user.addItemToCart(itemsObject.items.FirstOrDefault(i => i.name == name),name, count);
         return Redirect("https://google.com"); 
     }

@@ -1,4 +1,4 @@
-using WebApplication2.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebApplication2;
 
@@ -10,7 +10,6 @@ public class User
     public string? address;
     public string? postalCode;
     public HashSet<Item> cart = new HashSet<Item>();
-    // public List<HistoryViewModel> historyList = new List<HistoryViewModel>();
     public User(string email)
     {
         this.email = email;
@@ -22,7 +21,7 @@ public class User
         this.phone = phone;
         this.address = address;
         this.postalCode = postalCode;
-
+        
     }
     public override bool Equals(object? obj)
     {
@@ -33,13 +32,20 @@ public class User
         return email.GetHashCode();
     }
 
-    public async Task addItemToCart(Item item)
+
+    public async Task addItemToCart(Item itemCon, string name, int count)
     {
-        if (cart.Contains(item))
+        var item = cart.FirstOrDefault(i => i.name == name);
+        if (item != null)
         {
-            
+            item.setCount(count);
+            await Database.updateItemInCart(email, name, count);
         }
-    }
-    
-    
+        else if(item == null)
+        {
+            await Logger.LogAsync(email + " " + name + " " + count + " " + itemCon.getPrice());
+            cart.Add(new Item(name, itemCon.getPrice(), count, itemCon.getPathImage(), itemCon.getDescription()));
+            await Database.addItemToCart(email, name, count, itemCon.getPrice());
+        }
+    } //123
 }

@@ -54,6 +54,31 @@ itemControls.forEach(function(itemControl) {
     });
 });
 
+var addToCartButtons = document.querySelectorAll('[data-cart]');
+
+addToCartButtons.forEach(function(button) {
+    button.addEventListener('click', function() {
+        var cardBody = button.closest('.card-body');
+        var counter = cardBody.querySelector('[data-counter]');
+        var itemCount = parseInt(counter.innerText);
+        var itemName = cardBody.closest('.card').dataset.name; // Получаем имя товара
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/Buy/AddToCart', true); // Используйте правильный маршрут к вашему методу контроллера
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                console.log('Товар успешно добавлен в корзину');
+            } else {
+                console.error('Произошла ошибка при добавлении товара в корзину');
+            }
+        };
+
+        xhr.send(JSON.stringify({ name: itemName, quantity: itemCount })); // Отправляем на сервер имя и количество товара
+    });
+});
+
+
 
 let askedBox = document.querySelectorAll('.asked__box')
 let btn = document.querySelectorAll('#btn')

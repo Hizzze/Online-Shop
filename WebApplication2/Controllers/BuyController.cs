@@ -17,4 +17,11 @@ public class BuyController : Controller
     {
          return View();
     }
+    [HttpPost]
+    public IActionResult AddToCart(string name, int quantity)
+    {
+        // Ваш код для добавления товара в корзину
+        // Используйте name и quantity для добавления соответствующего товара в корзину
+        return Ok(); 
+    }
 }

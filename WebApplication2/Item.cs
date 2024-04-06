@@ -16,7 +16,14 @@ public class Item
         this.pathImage = pathImage;
         this.description = description;
     }
-
+    public override bool Equals(object? obj)
+    {
+        return obj is Item item && name == item.name;
+    }
+    public override int GetHashCode()
+    {
+        return name.GetHashCode();
+    }
     public string getName()
     {
         return this.name;

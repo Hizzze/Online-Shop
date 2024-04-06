@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApplication2.Controllers;
@@ -6,10 +7,11 @@ public class BuyController : Controller
 {
     
     private MainControllerItems itemsObject;
-
-    public BuyController(MainControllerItems itemsObject)
+    private MainControllerUsers users;
+    public BuyController(MainControllerItems itemsObject, MainControllerUsers users)
     {
         this.itemsObject = itemsObject;
+        this.users = users;
     }
     
     
@@ -17,11 +19,12 @@ public class BuyController : Controller
     {
          return View();
     }
+    [Authorize]
     [HttpPost]
-    public IActionResult AddToCart(string name, int quantity)
+    public async Task<IActionResult> addToCart(string name, int count)
     {
-        // Ваш код для добавления товара в корзину
-        // Используйте name и quantity для добавления соответствующего товара в корзину
-        return Ok(); 
+        var user = users.getUser(User.Identity.Name);
+        await user.addItemToCart(itemsObject.items.FirstOrDefault(i => i.name == name),name, count);
+        return Redirect("https://google.com"); 
     }
 }

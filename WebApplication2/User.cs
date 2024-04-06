@@ -47,5 +47,5 @@ public class User
             cart.Add(new Item(name, itemCon.getPrice(), count, itemCon.getPathImage(), itemCon.getDescription()));
             await Database.addItemToCart(email, name, count, itemCon.getPrice());
         }
-    }
+    } //123
 }

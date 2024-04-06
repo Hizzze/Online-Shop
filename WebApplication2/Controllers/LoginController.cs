@@ -59,8 +59,10 @@ public class LoginController : Controller
             Name = user.name,
             Phone = user.phone,
             Address = user.address,
-            PostalCode = user.postalCode
+            PostalCode = user.postalCode,
+
         };
         return View(model);
     }
+    
 }

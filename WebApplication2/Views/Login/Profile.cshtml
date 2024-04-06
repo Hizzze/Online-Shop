@@ -2,8 +2,53 @@
 
 <h1>Профиль пользователя</h1>
 
-<p>Email: @Model.Email</p>
-<p>Имя: @Model.Name</p>
-<p>Телефон: @Model.Phone</p>
-<p>Адрес: @Model.Address</p>
-<p>Почтовый код: @Model.PostalCode</p>
+@* <p>Email: @Model.Email</p> *@
+@* <p>Имя: @Model.Name</p> *@
+@* <p>Телефон: @Model.Phone</p> *@
+@* <p>Адрес: @Model.Address</p> *@
+@* <p>Почтовый код: @Model.PostalCode</p> *@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+             <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+                         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+             <title>Document</title>
+</head>
+<body>
+<div class="user-profile">
+    <h1>Профиль пользователя</h1>
+    <p>Email: @Model.Email</p>
+    <p>Имя: @Model.Name</p>
+    <p>Телефон: @Model.Phone</p>
+    <p>Адрес: @Model.Address</p>
+    <p>Почтовый код: @Model.PostalCode</p>
+</div>
+
+<div class="purchase-history">
+        <h1>Products</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Nazwa</th>
+                    <th>ilość</th>
+                    <th>Цена</th>
+                </tr>
+            </thead>
+            <tbody>
+                @* @foreach () *@
+                {
+                    <tr>
+                        <td>Date</td>
+                        <td>Nazwa</td>
+                        <td>Ilość</td>
+                        <td>Cena</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

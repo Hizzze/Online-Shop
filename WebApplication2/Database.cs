@@ -188,6 +188,7 @@ public class Database
         }
     }
     
+    
     public static async Task UpdateItemInCart(string email, string itemName, int count)
     {
         using (var connection = new MySqlConnection(connectionString))

@@ -1,3 +1,5 @@
+using WebApplication2.Models;
+
 namespace WebApplication2;
 
 public class User
@@ -8,7 +10,7 @@ public class User
     public string? address;
     public string? postalCode;
     public HashSet<Item> cart = new HashSet<Item>();
-    
+    // public List<HistoryViewModel> historyList = new List<HistoryViewModel>();
     public User(string email)
     {
         this.email = email;
@@ -20,6 +22,7 @@ public class User
         this.phone = phone;
         this.address = address;
         this.postalCode = postalCode;
+
     }
     public override bool Equals(object? obj)
     {
@@ -37,4 +40,6 @@ public class User
             
         }
     }
+    
+    
 }

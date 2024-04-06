@@ -36,10 +36,10 @@
                 <div class="col-md-8">
                     <div class="row" id="products-container">
                         <div class="col-md-4">
-                            <div class="card mb-4" data-id="${item.name}">
+                            <div class="card mb-4">
                                 <img class="product-img" src="@item.pathImage" alt="">
                                 <div class="card-body text-center">
-                                    <h4 class="item-title">@item.name</h4>
+                                    <h4 class="item-title" data-id="${item.name}">@item.name</h4>
                                     <p class="collection__cards-desct"><small>@item.description</small></p>
                                     <p class="cart-item__weight"><small data-items-in-box class="text-muted">@item.count szt.</small></p> 
                                             

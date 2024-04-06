@@ -21,7 +21,7 @@ public class CartController : Controller
     public async Task<IActionResult> Cart()
     {
         
-        var user = await _mainControllerUsers.getUser(User.Identity.Name);
+        var user = await _mainControllerUsers.getUserInfo(User.Identity.Name);
         if (user == null)
         {
             return NotFound();

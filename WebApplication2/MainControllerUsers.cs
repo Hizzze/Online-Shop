@@ -20,9 +20,5 @@ public class MainControllerUsers
         }
         return user;
     }
-    public async Task<User> getUser(string email)
-    {
-        return userList.FirstOrDefault(u => u.email == email);
-    }
-    //12
+
 }

@@ -1246,6 +1246,47 @@ button {
   background-color: #ffff;
   color: #000000;
 }
+.card-body {
+  padding: 1rem;
+}
+
+.cart__main-title {
+  margin-bottom: 1rem;
+}
+
+.cart__item {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.cart__image {
+  flex: 0 0 auto;
+  margin-right: 1rem;
+}
+
+.cart__image img {
+  max-width: 50px;
+  border-radius: 10px;
+}
+
+.cart__item-text {
+  flex: 1 1 auto;
+}
+
+.cart__item-title {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.cart__item-details {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 1rem;
+}
+
+
 
 /* Footer section */
 

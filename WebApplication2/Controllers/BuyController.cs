@@ -20,7 +20,7 @@ public class BuyController : Controller
     public async Task<IActionResult> createOrder()
     {
         var user = await users.getUserInfo(User.Identity.Name);
-        decimal price = user.cart.Sum(item => item.price * item.userCount);
+        decimal price = user.cart.Sum(item => item.price * 2);
         var model = new BuyViewModel()
         {
             email = user.email,
@@ -44,6 +44,6 @@ public class BuyController : Controller
             user.createOrder(new Order(model.email, model.items, model.name, model.lastName, model.phone, model.postalCode, model.address, model.APM, 150, "Processing"));
         }
 
-        return Redirect("https://google.com");
+        return View();
     }
 }

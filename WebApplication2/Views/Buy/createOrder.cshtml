@@ -4,8 +4,15 @@
     ViewData["Title"] = "Create Order";
 }
 
-<h2>@ViewData["Title"]</h2>
-
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Document</title>
+</head>
+<body>
 <form asp-controller="Buy" asp-action="CreateOrder" method="post">
     <div class="form-group">
         <label asp-for="email">Email</label>
@@ -13,47 +20,17 @@
         <span asp-validation-for="email" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
-        <label asp-for="name">Name</label>
-        <input asp-for="name" class="form-control" />
-        <span asp-validation-for="name" class="text-danger"></span>
-    </div>
 
     <div class="form-group">
-        <label asp-for="lastName">Last Name</label>
-        <input asp-for="lastName" class="form-control" />
-        <span asp-validation-for="lastName" class="text-danger"></span>
+        <label>Total Price</label>
+        <p>@Model.totalPrice.ToString("C")</p>
+        
+        
+        
     </div>
-
-    <div class="form-group">
-        <label asp-for="phone">Phone</label>
-        <input asp-for="phone" class="form-control" />
-        <span asp-validation-for="phone" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="postalCode">Postal Code</label>
-        <input asp-for="postalCode" class="form-control" />
-        <span asp-validation-for="postalCode" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="address">Address</label>
-        <input asp-for="address" class="form-control" />
-        <span asp-validation-for="address" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="APM">Payment Method</label>
-        <select asp-for="APM" class="form-control">
-            <option value="">Select a payment method</option>
-            <option value="CreditCard">Credit Card</option>
-            <option value="PayPal">PayPal</option>
-            <option value="BankTransfer">Bank Transfer</option>
-        </select>
-    </div>
-
-    <!-- totalPrice и status могут быть установлены в контроллере или обрабатываться скрытыми полями, если необходимо -->
 
     <button type="submit" class="btn btn-primary">Submit Order</button>
 </form>
+
+</body>
+</html>

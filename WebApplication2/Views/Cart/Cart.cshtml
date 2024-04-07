@@ -8,33 +8,40 @@
 </head>
 <body>
 
-    <form method="post" asp-controller="Cart" asp-action="Delete" class="cart__form">
-        <div id="order-form" class="card-body border-top">
-            <h4 class="card-title cart__main-title">Twoje zamówienie</h4>
-            @if (Model.item.Count > 0)
+<form id="cartForm" method="post" asp-controller="Cart" asp-action="Delete" class="cart__form">
+    <div id="order-form" class="card-body border-top">
+        <h4 class="card-title cart__main-title">Twoje zamówienie</h4>
+        @if (Model.item.Count > 0)
+        {
+            foreach (var item in Model.item)
             {
-                foreach (var item in Model.item)
-                {
-                    <div class="cart__item">
-                        <div class="cart__image">
-                            <img src="@item.pathImage" class="img-fluid rounded-start" alt="@item.name">
-                        </div>
-                        <div class="cart__item-text">
-                            <h5 class="cart__item-title">@item.name</h5>
-                            <p class="cart__item-details">Ilość: @item.userCount</p>
-                            <p class="cart__item-details">Cena: @item.price zł</p>
-                        </div>
-                        <button type="submit" class="section__btn cart__btn-del" name="name" value="@item.name">Usuń</button>
+                <div class="cart__item">
+                    <div class="cart__image">
+                        <img src="@item.pathImage" class="img-fluid rounded-start" alt="@item.name">
                     </div>
-                }
-                <button type="submit" class="section__btn cart__btn">Buy</button>
+                    <div class="cart__item-text">
+                        <h5 class="cart__item-title">@item.name</h5>
+                        <p class="cart__item-details">Ilość: @item.userCount</p>
+                        <p class="cart__item-details">Cena: @item.price zł</p>
+                    </div>
+                    <button type="submit" class="section__btn cart__btn-del" name="name" value="@item.name">Usuń</button>
+                </div>
             }
-            else
-            {
-                <p class="cart__empty-text">Twój koszyk jest pusty</p>
-            }
-        </div>
-    </form>
+              <button type="button" onclick="redirectToBuyController()" class="section__btn cart__btn">Buy</button>
+        }
+        else
+        {
+            <p class="cart__empty-text">Twój koszyk jest pusty</p>
+        }
+    </div>
+</form>
 
 </body>
+<script>
+    function redirectToBuyController() {
+        var form = document.getElementById("cartForm");
+        form.action = "@Url.Action("createOrder", "Buy")";
+        form.submit();
+    }
+</script>
 </html>

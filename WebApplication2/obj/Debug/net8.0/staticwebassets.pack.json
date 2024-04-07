@@ -21,8 +21,16 @@
       "PackagePath": "staticwebassets/images/elfbar.webp"
     },
     {
+      "Id": "/Users/vlad/RiderProjects/MarketProject2/WebApplication2/wwwroot/images/facebook.svg",
+      "PackagePath": "staticwebassets/images/facebook.svg"
+    },
+    {
       "Id": "/Users/vlad/RiderProjects/MarketProject2/WebApplication2/wwwroot/images/favorites.svg",
       "PackagePath": "staticwebassets/images/favorites.svg"
+    },
+    {
+      "Id": "/Users/vlad/RiderProjects/MarketProject2/WebApplication2/wwwroot/images/instagram.svg",
+      "PackagePath": "staticwebassets/images/instagram.svg"
     },
     {
       "Id": "/Users/vlad/RiderProjects/MarketProject2/WebApplication2/wwwroot/images/logo.webp",
@@ -43,6 +51,14 @@
     {
       "Id": "/Users/vlad/RiderProjects/MarketProject2/WebApplication2/wwwroot/images/shape4.png",
       "PackagePath": "staticwebassets/images/shape4.png"
+    },
+    {
+      "Id": "/Users/vlad/RiderProjects/MarketProject2/WebApplication2/wwwroot/images/telegram.svg",
+      "PackagePath": "staticwebassets/images/telegram.svg"
+    },
+    {
+      "Id": "/Users/vlad/RiderProjects/MarketProject2/WebApplication2/wwwroot/images/whatsapp.svg",
+      "PackagePath": "staticwebassets/images/whatsapp.svg"
     },
     {
       "Id": "/Users/vlad/RiderProjects/MarketProject2/WebApplication2/wwwroot/js/site.js",

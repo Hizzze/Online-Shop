@@ -26,6 +26,6 @@ public class BuyController : Controller
         
         var user = await users.getUserInfo(User.Identity.Name);
         await user.addItemToCart(itemsObject.items.FirstOrDefault(i => i.name == name),name, count);
-        return Redirect("https://google.com"); 
+        return RedirectToAction("Cart", "Cart");
     }
 }

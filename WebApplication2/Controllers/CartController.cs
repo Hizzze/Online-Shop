@@ -7,12 +7,13 @@ namespace WebApplication2.Controllers;
 
 public class CartController : Controller
 {
-    private readonly MainControllerUsers _mainControllerUsers;
+    private readonly MainControllerUsers users;
     private readonly Item item;
-
-    public CartController(MainControllerUsers mainControllerUsers)
+    private readonly MainControllerItems items;
+    public CartController(MainControllerUsers mainControllerUsers, MainControllerItems mainControllerItems)
     {
-        _mainControllerUsers = mainControllerUsers;
+        users = mainControllerUsers;
+        items = mainControllerItems;
     }
     
     
@@ -20,8 +21,7 @@ public class CartController : Controller
     [Authorize]
     public async Task<IActionResult> Cart()
     {
-        
-        var user = await _mainControllerUsers.getUserInfo(User.Identity.Name);
+        var user = await users.getUserInfo(User.Identity.Name);
         if (user == null)
         {
             return NotFound();
@@ -51,5 +51,14 @@ public class CartController : Controller
         }
 
         return RedirectToAction("Cart");
+    }
+    
+    [Authorize]
+    [HttpPost]
+    public async Task<IActionResult> addToCart(string name, int count)
+    {
+        var user = await users.getUserInfo(User.Identity.Name);
+        await user.addItemToCart(items.items.FirstOrDefault(i => i.name == name),name, count);
+        return RedirectToAction("Cart", "Cart");
     }
 }

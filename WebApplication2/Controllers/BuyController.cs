@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebApplication2.Models;
 
 namespace WebApplication2.Controllers;
 
@@ -14,18 +15,29 @@ public class BuyController : Controller
         this.users = users;
     }
     
-    
-    public  IActionResult BuyItem()
+    [Authorize]
+    [HttpGet]
+    public async Task<IActionResult> createOrder()
     {
-         return View();
+        var model = new BuyViewModel()
+        {
+            email = User.Identity.Name
+        };
+        return View(model);
     }
     [Authorize]
     [HttpPost]
-    public async Task<IActionResult> addToCart(string name, int count)
+    public async Task<IActionResult> createOrder(BuyViewModel model)
     {
-        
-        var user = await users.getUserInfo(User.Identity.Name);
-        await user.addItemToCart(itemsObject.items.FirstOrDefault(i => i.name == name),name, count);
-        return RedirectToAction("Cart", "Cart");
+        if (ModelState.IsValid)
+        {
+            var user = await users.getUserInfo(User.Identity.Name);
+            if (user == null)
+            {
+                ModelState.AddModelError("", "User not found.");
+                return View(model);
+            }
+            user.createOrder(new Order(model.email, model.name, model.lastName, model.phone, model.postalCode, model.address, model.APM, 150, "Processing"));
+        }
     }
 }

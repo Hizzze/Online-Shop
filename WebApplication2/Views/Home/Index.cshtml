@@ -12,7 +12,7 @@
                 <img src="images/shape2.png" alt="" class="header__shape-img--2" >
                 <img src="images/shape3.png" alt="" class="header__shape-img--3">
                 <h1 class="header__title">
-                    BUY <br> ELFBAR SUKKA
+                    BUY <br>
                 </h1>
                 <p class="header__text">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, ad blanditiis error harum illo illum iste, laudantium nobis numquam omnis qui quos rerum, voluptate. Autem dolore maiores molestias officia voluptas!
@@ -58,7 +58,7 @@
                                         </div>
                                     </div>
                                             
-                                    <form asp-controller="Buy" asp-action="addToCart" method="post">
+                                    <form asp-controller="Cart" asp-action="addToCart" method="post">
                                                                 <input type="hidden" name="name" value="@item.name" />
                                                                 <input type="hidden" name="userCount" value="@item.userCount" />
                                                                 <button type="submit" class="btn btn-block btn-outline-warning">do koszyka</button>

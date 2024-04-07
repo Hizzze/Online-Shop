@@ -10,6 +10,7 @@ public class User
     public string? address;
     public string? postalCode;
     public HashSet<Item> cart = new HashSet<Item>();
+    public List<Order> orders = new List<Order>();
     public User(string email)
     {
         this.email = email;
@@ -31,8 +32,7 @@ public class User
     {
         return email.GetHashCode();
     }
-
-
+    
     public async Task addItemToCart(Item itemCon, string name, int count)
     {
         var item = cart.FirstOrDefault(i => i.name == name);
@@ -47,5 +47,11 @@ public class User
             cart.Add(new Item(name, itemCon.getPrice(), count, itemCon.getPathImage(), itemCon.getDescription()));
             await Database.addItemToCart(email, name, count, itemCon.getPrice());
         }
-    } //123
+    }
+
+    public async Task createOrder(Order order)
+    {
+        orders.Add(order);
+        Database.makeOrder();
+    }
 }

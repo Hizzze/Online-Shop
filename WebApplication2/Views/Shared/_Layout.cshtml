@@ -21,16 +21,25 @@
                     <img src="../images/logo.webp" class="header__logo">
 
                 <div class="header__nav-right">
-                   @if (User.Identity.IsAuthenticated)
-                      {
-                          <a class="headernav-item" asp-controller="Login" asp-action="Profile">@User.Identity.Name</a>
-                          <a class="header__nav-item" asp-controller="Login" asp-action="Logout">Logout</a>
-                      }
-                      else
-                      {
-                          <a class="header__nav-item" asp-controller="Registration" asp-action="Registration">Rejestracja</a>
-                          <a class="header__nav-item" asp-controller="Login" asp-action="Login">Login</a>
-                      }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="dropdown">
+                            <a class="header__nav-item" asp-controller="Login" asp-action="Profile">
+                                @User.Identity.Name
+                            </a>
+                                <span onclick="toggleDropdown(event)" class="arrow">&#9662;</span>
+                            <div id="dropdownContent" class="dropdown-content">
+                                <a class="header__nav-item header__logout" asp-controller="Login" asp-action="Logout">Logout</a>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="auth__inner">
+                            <a class="header__nav-item" asp-controller="Registration" asp-action="Registration">Rejestracja</a>
+                            <a class="header__nav-item" asp-controller="Login" asp-action="Login">Login</a>
+                        </div>
+                    }
                 </div>
                 
                 <ul class="user-nav">

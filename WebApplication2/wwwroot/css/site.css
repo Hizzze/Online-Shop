@@ -92,7 +92,13 @@ body{
   font-weight: 500;
   font-size: 18px;
   line-height: 20px;
+  padding-bottom: 15px;
   color: #ffff;
+  transition: all .3s ease;
+}
+
+.header__nav-item:hover {
+  color: #532C59;
 }
 
 .header_nameOfComp {
@@ -111,6 +117,9 @@ body{
   border-radius: 50px;
   border: 2px solid #532C59;
 }
+.header__logout {
+  margin-left: 50px;
+}
 .user-nav {
   display: flex;
   gap: 0 20px;
@@ -119,6 +128,53 @@ body{
 .user-nav__cart {
   position: relative;
 }
+
+/* Dropdown header Section*/
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  background-color: transparent;
+  color: #333;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.auth__inner {
+  display: flex;
+  flex-direction: column;
+}
+.arrow {
+  margin-left: 5px;
+  cursor: pointer;
+}
+.dropdown-content a {
+  color: #532C59;;
+  padding: 12px 10px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.show {
+  display: block;
+}
+
 
 .user-nav__cart::after {
   content: attr(data-count); /* Отображаемое число берется из атрибута data-count */

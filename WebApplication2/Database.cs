@@ -90,9 +90,8 @@ public class Database
             }
         }
     }
-    /*public static bool makeOrder(string email, string name, string lastName,string phone, string postalCode, string? address,
-        string? APM, string itemName, string itemCount, decimal totalPrice)*/
-    public static bool makeOrder(Order order)
+    public static bool makeOrder(string email, string name, string lastName,string phone, string postalCode, string? address,
+        string? APM, string itemName, int itemCount, decimal totalPrice)
     {
         using (var connection = new MySqlConnection(connectionString))
         {
@@ -104,16 +103,16 @@ public class Database
                     command.CommandText = "INSERT INTO orders (email, user_first_name, user_last_name, " +
                                           "phone, postal_code, address, APM, item_name, item_count, total_price, status) " +
                                           "VALUES (@value1, @value2, @value3, @value4, @value5, @value6, @value7, @value8, @value9, @value10)";
-                    command.Parameters.AddWithValue("@value1", order.email);
-                    command.Parameters.AddWithValue("@value2", order.name);
-                    command.Parameters.AddWithValue("@value3", order.lastName);
-                    command.Parameters.AddWithValue("@value4", order.phone);
-                    command.Parameters.AddWithValue("@value5", order.postalCode);
-                    command.Parameters.AddWithValue("@value6", order.address);
-                    command.Parameters.AddWithValue("@value7", order.APM);
-                    command.Parameters.AddWithValue("@value8", order.itemName);
-                    command.Parameters.AddWithValue("@value9", order.itemCount);
-                    command.Parameters.AddWithValue("@value10", order.totalPrice);
+                    command.Parameters.AddWithValue("@value1", email);
+                    command.Parameters.AddWithValue("@value2", name);
+                    command.Parameters.AddWithValue("@value3", lastName);
+                    command.Parameters.AddWithValue("@value4", phone);
+                    command.Parameters.AddWithValue("@value5", postalCode);
+                    command.Parameters.AddWithValue("@value6", address);
+                    command.Parameters.AddWithValue("@value7", APM);
+                    command.Parameters.AddWithValue("@value8", itemName);
+                    command.Parameters.AddWithValue("@value9", itemCount);
+                    command.Parameters.AddWithValue("@value10", totalPrice);
                     command.ExecuteNonQuery();
                     return true;
                 }

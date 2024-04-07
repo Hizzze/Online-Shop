@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebApplication2;
 
@@ -52,6 +53,7 @@ public class User
     public async Task createOrder(Order order)
     {
         orders.Add(order);
-        Database.makeOrder();
+        Database.makeOrder(order.email, order.name, order.lastName, 
+            order.phone, order.postalCode, order.address, order.APM, "test", 5, 150);
     }
 }

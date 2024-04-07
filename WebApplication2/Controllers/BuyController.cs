@@ -39,5 +39,7 @@ public class BuyController : Controller
             }
             user.createOrder(new Order(model.email, model.name, model.lastName, model.phone, model.postalCode, model.address, model.APM, 150, "Processing"));
         }
+
+        return Redirect("https://google.com");
     }
 }

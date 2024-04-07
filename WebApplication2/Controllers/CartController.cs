@@ -37,7 +37,7 @@ public class CartController : Controller
     [HttpPost]
     public async Task<IActionResult> Delete(string name)
     {
-        var user = await _mainControllerUsers.getUserInfo(User.Identity.Name);
+        var user = await users.getUserInfo(User.Identity.Name);
         if (user == null)
         {
             return NotFound();

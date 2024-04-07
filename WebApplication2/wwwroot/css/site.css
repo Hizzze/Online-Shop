@@ -186,7 +186,7 @@ body{
   margin-bottom: 50px;
 }
 
-.section__btn{
+.section__btn {
   padding: 16px 20px;
   color: #fff;
   background-color: #532C59;
@@ -195,7 +195,7 @@ body{
   line-height: 20px;
   cursor: pointer;
   margin-bottom: 50px;
-  align-items: center;
+  text-align: center;
 }
 
 .section__btn:hover{
@@ -1252,11 +1252,15 @@ button {
 
 .cart__main-title {
   margin-bottom: 1rem;
+  text-align: center;
 }
 
 .cart__item {
   display: flex;
   margin-bottom: 1rem;
+}
+.cart__btn-del {
+  margin-left: 30px;
 }
 
 .cart__image {
@@ -1268,7 +1272,22 @@ button {
   max-width: 50px;
   border-radius: 10px;
 }
-
+.cart__form {
+  max-width: 300px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 2px solid #532C59 ;
+  align-items: center;
+  border-radius: 5px;
+  margin: 0 auto;
+  text-align: center;
+}
+.cart__empty-text {
+  font-size: 18px;
+  text-align: center;
+}
 .cart__item-text {
   flex: 1 1 auto;
 }
@@ -1284,6 +1303,12 @@ button {
   margin-top: 0;
   margin-bottom: 0;
   font-size: 1rem;
+}
+
+.cart__btn {
+  margin-top: 100px;
+  max-width: 200px;
+  
 }
 
 

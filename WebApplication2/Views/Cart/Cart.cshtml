@@ -7,27 +7,34 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div id="order-form" class="card-body border-top">
-    <h4 class="card-title cart__main-title">Оформить заказ</h4>
-    <form>
-        @foreach (var item in Model.item)
-        {
-            <div class="cart__item">
-                <div class="cart__image">
-                    <img src="@item.pathImage" class="img-fluid rounded-start" alt="@item.name">
-                </div>
-                <div class="cart__item-text">
-                    <h5 class="cart__item-title">@item.name</h5>
-                    <p class="cart__item-details">Количество: @item.userCount</p>
-                    <p class="cart__item-details">Цена: @item.price</p>
-                </div>
-            </div>
-        }
-        <div class="form-group">
-            <input type="text" class="form-control" placeholder="Ваш номер телефона">
+
+    <form method="post" asp-controller="Cart" asp-action="Delete" class="cart__form">
+        <div id="order-form" class="card-body border-top">
+            <h4 class="card-title cart__main-title">Twoje zamówienie</h4>
+            @if (Model.item.Count > 0)
+            {
+                foreach (var item in Model.item)
+                {
+                    <div class="cart__item">
+                        <div class="cart__image">
+                            <img src="@item.pathImage" class="img-fluid rounded-start" alt="@item.name">
+                        </div>
+                        <div class="cart__item-text">
+                            <h5 class="cart__item-title">@item.name</h5>
+                            <p class="cart__item-details">Ilość: @item.userCount</p>
+                            <p class="cart__item-details">Cena: @item.price zł</p>
+                        </div>
+                        <button type="submit" class="section__btn cart__btn-del" name="name" value="@item.name">Usuń</button>
+                    </div>
+                }
+                <button type="submit" class="section__btn cart__btn">Buy</button>
+            }
+            else
+            {
+                <p class="cart__empty-text">Twój koszyk jest pusty</p>
+            }
         </div>
-        <button type="submit" class="btn btn-primary">Заказать</button>
     </form>
-</div>
+
 </body>
 </html>

@@ -32,4 +32,24 @@ public class CartController : Controller
         };
         return View(model);
     }
+
+    [Authorize]
+    [HttpPost]
+    public async Task<IActionResult> Delete(string name)
+    {
+        var user = await _mainControllerUsers.getUserInfo(User.Identity.Name);
+        if (user == null)
+        {
+            return NotFound();
+        }
+
+        var itemToRemove = user.cart.FirstOrDefault(i => i.name == name);
+        if (itemToRemove != null)
+        {
+            user.cart.Remove(itemToRemove);
+
+        }
+
+        return RedirectToAction("Cart");
+    }
 }

@@ -16,9 +16,11 @@
             <div class="header__nav">
                 <div class="header__nav-left">
                     <a class="header__nav-item" asp-controller="Home" asp-action="Index">Główna</a>
-                    <a class="header__nav-item">Кontakt</a>
+                    <a href="#footer" class="header__nav-item">Кontakt</a>
                 </div>
+                <a asp-controller="Home" asp-action="Index">
                     <img src="../images/logo.webp" class="header__logo">
+                </a>
 
                 <div class="header__nav-right">
                     @if (User.Identity.IsAuthenticated)
@@ -74,33 +76,26 @@
     </main>
 </div>
 
-<footer class="footer">
+<footer class="footer" id="footer">
         <div class="container">
             <div class="footer__inner">
                 
                 <div class="footer__right">
                     <h2 class="footer__title">
-                        КОНТАКТЫ
+                        Kontakty
                     </h2>
 
                     <div class="footer__right-list">
                         <li class="footer__right-item">
                             <p class="footer__right-text">
-                                Центральный офис:
-                                г. Москва, ул,Гоголя 13, 1й этаж
+                                Główne biuro:
+                                m. Poznań
                             </p>
                         </li>
 
                         <li class="footer__right-item">
                             <p class="footer__right-text">
-                                Представительство в Киеве:
-                                г. Киев, ул. Є. Коновальця, 103 оф. 410
-                            </p>
-                        </li>
-
-                        <li class="footer__right-item">
-                            <p class="footer__right-text">
-                                Представительства в Харькове, Одессе, Ростове, Сочи, Белгороде
+                                Odessa,Kharków
                             </p>
                         </li>
 
@@ -110,7 +105,7 @@
                         </li>
 
                         <li class="footer__right-item">
-                            Ежедневно 08:00 - 20:00
+                            Codziennie 08:00 - 20:00
                         </li>
                     </div>
                 </div>
@@ -118,7 +113,7 @@
 
             <div class="footer__end">
                 <p class="copyright">
-                    Политика конфиденциальности  
+                    Developed by Vladyslav Syzov and Yehor Sorochan
                 </p>
 
                 <img src="../images/logo.webp" alt="footer logo" class="footer__logo">

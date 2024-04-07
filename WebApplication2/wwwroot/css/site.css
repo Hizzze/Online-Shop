@@ -1279,6 +1279,7 @@ button {
 .purchase-history {
   background-color: #532C59;
   border-radius: 10px;
+  margin-bottom: 50px;
   padding: 20px;
 }
 
@@ -1339,6 +1340,7 @@ button {
   border-radius: 5px;
   margin: 0 auto;
   text-align: center;
+  margin-bottom: 50px;
 }
 .cart__empty-text {
   font-size: 18px;
@@ -1447,6 +1449,7 @@ select {
 /* Footer section */
 
 .footer {
+  border-top: 1px solid #F8E0FB;
   padding-top: 70px;
   background-position: center;
   background-repeat: no-repeat;
@@ -1551,10 +1554,14 @@ li {
   display: -ms-flexbox;
   display: flex;
   gap: 20px;
+  cursor: pointer;
 }
 
 .footer__logo {
   max-width: 100px;
   border-radius: 50px;
+}
+.copyright {
+  max-width: 170px;
 }
 

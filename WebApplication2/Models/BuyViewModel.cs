@@ -5,6 +5,8 @@ namespace WebApplication2.Models;
 public class BuyViewModel
 {
     [Required]
+    public HashSet<Item> items = new HashSet<Item>();
+    [Required]
     public string email;
     
     [Required]

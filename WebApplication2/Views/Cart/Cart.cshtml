@@ -39,9 +39,9 @@
 </body>
 <script>
     function redirectToBuyController() {
-        var form = document.getElementById("cartForm");
-        form.action = "@Url.Action("createOrder", "Buy")";
-        form.submit();
+        // Прямое перенаправление на метод действия контроллера Buy
+        window.location.href = "@Url.Action("createOrder", "Buy")";
     }
 </script>
+
 </html>

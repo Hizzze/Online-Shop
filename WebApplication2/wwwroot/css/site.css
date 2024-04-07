@@ -243,7 +243,7 @@ body{
 }
 
 .section__btn {
-  padding: 16px 20px;
+  padding: 10px;
   color: #fff;
   background-color: #532C59;
   font-weight: 700;
@@ -1367,7 +1367,82 @@ button {
   
 }
 
+/* Order Section */
+.createOrder__inner {
+  display: flex;
+  justify-content: center;
+}
+.order__right-title {
+  margin-bottom: 20px;
+}
+.createOrder__inner {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  align-items: center;
+  height: 100vh;
+}
 
+.createOrder-left {
+  flex: 1;
+  padding: 20px;
+  background-color: #532C59;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.createOrder-right {
+  flex: 1;
+  padding: 20px;
+  background-color: #532C59;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+
+
+.cart__item {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.cart__image img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-right: 20px;
+}
+
+.cart__item-text {
+  flex: 1;
+}
+
+.cart__item-title {
+  margin: 0;
+  font-size: 18px;
+}
+
+.cart__item-details {
+  margin: 5px 0;
+}
 
 /* Footer section */
 

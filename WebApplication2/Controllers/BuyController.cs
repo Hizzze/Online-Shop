@@ -19,9 +19,13 @@ public class BuyController : Controller
     [HttpGet]
     public async Task<IActionResult> createOrder()
     {
+        var user = await users.getUserInfo(User.Identity.Name);
+        decimal price = user.cart.Sum(item => item.price * item.userCount);
         var model = new BuyViewModel()
         {
-            email = User.Identity.Name
+            email = user.email,
+            items = user.cart,
+            totalPrice = price
         };
         return View(model);
     }
@@ -37,7 +41,7 @@ public class BuyController : Controller
                 ModelState.AddModelError("", "User not found.");
                 return View(model);
             }
-            user.createOrder(new Order(model.email, model.name, model.lastName, model.phone, model.postalCode, model.address, model.APM, 150, "Processing"));
+            user.createOrder(new Order(model.email, model.items, model.name, model.lastName, model.phone, model.postalCode, model.address, model.APM, 150, "Processing"));
         }
 
         return Redirect("https://google.com");

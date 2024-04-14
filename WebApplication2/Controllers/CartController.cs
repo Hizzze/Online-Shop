@@ -35,30 +35,27 @@ public class CartController : Controller
 
     [Authorize]
     [HttpPost]
-    public async Task<IActionResult> Delete(string name)
+    public async Task<IActionResult> Delete(int id)
     {
         var user = await users.getUserInfo(User.Identity.Name);
         if (user == null)
         {
             return NotFound();
         }
-
-        var itemToRemove = user.cart.FirstOrDefault(i => i.name == name);
+        var itemToRemove = user.cart.FirstOrDefault(i => i.id == id);
         if (itemToRemove != null)
         {
-            user.cart.Remove(itemToRemove);
-
+            user.removeFromCart(itemToRemove);
         }
-
         return RedirectToAction("Cart");
     }
     
     [Authorize]
     [HttpPost]
-    public async Task<IActionResult> addToCart(string name, int count)
+    public async Task<IActionResult> addToCart(int id, int count)
     {
         var user = await users.getUserInfo(User.Identity.Name);
-        await user.addItemToCart(items.items.FirstOrDefault(i => i.name == name),name, count);
+        await user.addItemToCart(items.items.FirstOrDefault(i => i.id == id),id, count);
         return RedirectToAction("Cart", "Cart");
     }
 }

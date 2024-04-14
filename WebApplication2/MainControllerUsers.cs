@@ -8,6 +8,7 @@ public class MainControllerUsers
     {
         var (name, phone,address,postalCode) = await Database.getUserInfoDatabase(email);
         var user = new User(email, name, phone, address, postalCode);
+        await user.loadCart();
         userList.Add(user);
     }
     

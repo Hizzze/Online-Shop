@@ -10,9 +10,9 @@ public class Item
     public string pathImage;
     public string description;
 
-    public Item(string name, decimal price, int userCount)
+    public Item(int id, decimal price, int userCount)
     {
-        this.name = name;
+        this.id = id;
         this.price = price;
         this.userCount = userCount;
     }
@@ -31,7 +31,7 @@ public class Item
     }
     public override int GetHashCode()
     {
-        return name.GetHashCode();
+        return id.GetHashCode();
     }
     public string getName()
     {

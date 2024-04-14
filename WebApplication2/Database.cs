@@ -175,10 +175,10 @@ public class Database
                     command.Parameters.AddWithValue("@value8", totalPrice);
                     command.Parameters.AddWithValue("@value9", status);
                     await command.ExecuteNonQueryAsync();
-                    orderId = (int)command.LastInsertedId;  // Get the newly created order ID
+                    orderId = (int)command.LastInsertedId; 
                 }
 
-                // Insert order items
+                
                 foreach (var item in items)
                 {
                     using (var command = connection.CreateCommand())
@@ -193,7 +193,7 @@ public class Database
                     }
                 }
 
-                // Commit the transaction
+               
                 await transaction.CommitAsync();
                 return true; 
             } 
@@ -206,6 +206,27 @@ public class Database
     }
 }
 
+    public static async Task removeFromUserCart(string email, int id)
+    {
+        using (var connection = new MySqlConnection(connectionString))
+        {
+            try
+            {
+                await connection.OpenAsync();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = "DELETE FROM users_carts WHERE email = @value1 && id = @value2";
+                    command.Parameters.AddWithValue("@value1", email);
+                    command.Parameters.AddWithValue("@value2", id);
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                await Logger.LogAsync("Error on removing from cart DB: " + ex.Message, Logger.LogLevel.Error);
+            }
+        }
+    }
     public static async Task<HashSet<Item>> getUserCart(string email)
     {
         HashSet<Item> userCart = new HashSet<Item>();
@@ -216,13 +237,13 @@ public class Database
                 await connection.OpenAsync();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "SELECT item_name, count, price FROM users_carts WHERE email = @value1";
+                    command.CommandText = "SELECT id, count, price FROM users_carts WHERE email = @value1";
                     command.Parameters.AddWithValue("@value1", email);
                     using (var reader = await command.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
                         {
-                            var item = new Item(reader["item_name"].ToString(), reader.GetDecimal("price"),
+                            var item = new Item(reader.GetInt32("id"), reader.GetDecimal("price"),
                                 reader.GetInt32("count"));
                             userCart.Add(item);
                         }
@@ -306,7 +327,7 @@ public class Database
         return items;
     }
 
-    public static async Task addItemToCart(string email, string itemName, int count, decimal price)
+    public static async Task addItemToCart(string email, int id, int count, decimal price)
     {
         using (var connection = new MySqlConnection(connectionString))
         {
@@ -317,9 +338,9 @@ public class Database
                     using (var command = connection.CreateCommand())
                     {
                         command.CommandText =
-                            "INSERT INTO users_carts (email, item_name, count, price) VALUES (@value1, @value2,@value3,@value4)";
+                            "INSERT INTO users_carts (email, id, count, price) VALUES (@value1, @value2,@value3,@value4)";
                         command.Parameters.AddWithValue("@value1", email);
-                        command.Parameters.AddWithValue("@value2", itemName);
+                        command.Parameters.AddWithValue("@value2", id);
                         command.Parameters.AddWithValue("@value3", count);
                         command.Parameters.AddWithValue("@value4", price);
                         await command.ExecuteNonQueryAsync();
@@ -335,7 +356,7 @@ public class Database
     }
     
     
-    public static async Task updateItemInCart(string email, string itemName, int count)
+    public static async Task updateItemInCart(string email, int id, int count)
     {
         using (var connection = new MySqlConnection(connectionString))
         {
@@ -345,10 +366,10 @@ public class Database
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText =
-                        "UPDATE users_carts SET count = @value1 WHERE email = @value2 && item_name = @value3";
+                        "UPDATE users_carts SET count = @value1 WHERE email = @value2 && id = @value3";
                     command.Parameters.AddWithValue("@value1", count);
                     command.Parameters.AddWithValue("@value2", email);
-                    command.Parameters.AddWithValue("@value3", itemName);
+                    command.Parameters.AddWithValue("@value3", id);
                     await command.ExecuteNonQueryAsync();
                 }
             }

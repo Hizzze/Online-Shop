@@ -40,25 +40,32 @@ public class User
             var items = await Database.getUserCart(email);
             foreach (var item in items)
             {
-                item.pathImage = await MainControllerItems.getItemPathImageByName(item.name);
-                item.description = await MainControllerItems.getItemDescriptionByName(item.name);
+                item.name = await MainControllerItems.getItemNameById(item.id);
+                item.pathImage = await MainControllerItems.getItemPathImageById(item.id);
+                item.description = await MainControllerItems.getItemDescriptionById(item.id);
             }
             cart = items;
         }
     }
-    public async Task addItemToCart(Item itemCon, string name, int count)
+
+    public async Task removeFromCart(Item item)
     {
-        var item = cart.FirstOrDefault(i => i.name == name);
+        await Database.removeFromUserCart(email, item.id);
+        cart.Remove(item);
+    }
+    public async Task addItemToCart(Item itemCon, int id, int count)
+    {
+        var item = cart.FirstOrDefault(i => i.id == id);
         if (item != null)
         {
             item.setCount(count);
-            await Database.updateItemInCart(email, name, count);
+            await Database.updateItemInCart(email, id, count);
         }
         else if(item == null)
         {
             await Logger.LogAsync(email + " " + name + " " + count + " " + itemCon.getPrice());
             cart.Add(new Item(itemCon.getId(), name, itemCon.getPrice(), count, itemCon.getPathImage(), itemCon.getDescription()));
-            await Database.addItemToCart(email, name, count, itemCon.getPrice());
+            await Database.addItemToCart(email, id, count, itemCon.getPrice());
         }
     }
 

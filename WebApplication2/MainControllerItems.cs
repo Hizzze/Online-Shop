@@ -16,18 +16,28 @@ public class MainControllerItems
         itemsSync = items;
     }
 
-    public static async Task<string> getItemPathImageByName(string itemName)
+    public static async Task<string> getItemPathImageById(int id)
     {
-        Item item = itemsSync.FirstOrDefault(i => i.name == itemName);
+        Item item = itemsSync.FirstOrDefault(i => i.id == id);
         if (item != null)
         {
             return item.pathImage;
         }
         return null;
     }
-    public static async Task<string> getItemDescriptionByName(string itemName)
+
+    public static async Task<string> getItemNameById(int id)
     {
-        Item item = itemsSync.FirstOrDefault(i => i.name == itemName);
+        Item item = itemsSync.FirstOrDefault(i => i.id == id);
+        if (item != null)
+        {
+            return item.name;
+        }
+        return null;
+    }
+    public static async Task<string> getItemDescriptionById(int id)
+    {
+        Item item = itemsSync.FirstOrDefault(i => i.id == id);
         if (item != null)
         {
             return item.description;

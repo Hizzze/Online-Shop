@@ -4,27 +4,29 @@ namespace WebApplication2.Models;
 
 public class BuyViewModel
 {
+  
     [Required]
-    public HashSet<Item> items = new HashSet<Item>();
-    [Required]
-    public string email;
-    
-    [Required]
-    public string name;
+    public HashSet<Item> items { get; set; }
     
     [Required]
-    public string lastName;
+    public string email { get; set; }
     
     [Required]
-    public string phone;
+    public string name { get; set; }
     
-    public string postalCode;
+    [Required]
+    public string lastName { get; set; }
     
-    public string address;
+    [Required]
+    public string phone { get; set; }
     
-    public string APM;
+    public string postalCode { get; set; }
     
-    public decimal totalPrice;
+    public string address { get; set; }
     
-    public string status;
+    public string APM { get; set; }
+    
+    public decimal totalPrice { get; set; }
+    
+    public string status { get; set; }
 }

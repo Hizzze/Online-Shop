@@ -45,6 +45,19 @@ public class BuyController : Controller
             await user.createOrder(new Order(user.cart, model.email, model.name, model.lastName, 
                 model.phone, model.postalCode, model.address, model.APM, model.totalPrice, "Processing"));
         }
-        return View();
+        else
+        {
+            // Переобновить данные в модели перед возвратом представления
+            var user = await users.getUserInfo(User.Identity.Name);
+            if (user != null)
+            {
+                decimal price = user.cart.Sum(item => item.price * 2);
+                model.email = user.email;
+                model.items = user.cart;
+                model.totalPrice = price;
+            }
+        }
+        return View(model);
+
     }
 }

@@ -1564,4 +1564,9 @@ li {
 .copyright {
   max-width: 170px;
 }
-
+.item_user-count {
+  background-color: transparent;
+  border: none;
+  color: #FFFFFF;
+  font-weight: 700;
+}

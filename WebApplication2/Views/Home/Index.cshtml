@@ -43,12 +43,13 @@
                                     <p class="collection__cards-desct"><small>@item.description</small></p>
                                     <p class="cart-item__weight"><small data-items-in-box class="text-muted">@item.count szt.</small></p> 
                                             
+                                    <form asp-controller="Cart" asp-action="addToCart" method="post">
                                     <div class="details-wrapper">
                                             
                                         <!-- Счетчик -->
                                         <div class="items counter-wrapper">
                                             <div class="items__control" data-action="minus">-</div>
-                                           <input type="text" name="count" class="items__current" data-usercount="@item.userCount" data-counter="@item.userCount" value="@item.userCount" >
+                                           <input type="text" name="count" class="items__current item_user-count" data-usercount="@item.userCount" data-counter="@item.userCount" value="@item.userCount" >
                                             @* <div class="items__current" data-counter>@item.userCount</div> *@
                                             <div class="items__control" data-action="plus">+</div>
                                         </div>
@@ -59,7 +60,6 @@
                                         </div>
                                     </div>
                                             
-                                    <form asp-controller="Cart" asp-action="addToCart" method="post">
                                                                 <input type="hidden" name="id" value="@item.id" />
                                                                 <input type="hidden" name="userCount" value="@item.userCount" />
                                                                 <button type="submit" class="btn btn-block btn-outline-warning">do koszyka</button>

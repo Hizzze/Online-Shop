@@ -1,4 +1,4 @@
-﻿window.addEventListener('click', function (event) {
+﻿/*window.addEventListener('click', function (event) {
     // Находим счетчик товаров в корзине
     const counterCart = document.querySelector('.counter__cart');
 
@@ -21,7 +21,22 @@
             counterCart.innerText = currentCount - 1;
         }
     }
+});*/
+document.querySelectorAll('.items__control').forEach(function(button) {
+    button.addEventListener('click', function() {
+        var counter = document.getElementById('counter');
+        var currentValue = parseInt(counter.value);
+
+        if (this.dataset.action === 'minus') {
+            if (currentValue > 0) {
+                counter.value = currentValue - 1;
+            }
+        } else if (this.dataset.action === 'plus') {
+            counter.value = currentValue + 1;
+        }
+    });
 });
+
 
 // Получаем все элементы с классом "items__control" в каждой карточке продукта
 const itemControls = document.querySelectorAll('.items__control');

@@ -64,7 +64,7 @@ public class User
         else if(item == null)
         {
             await Logger.LogAsync(email + " " + name + " " + count + " " + itemCon.getPrice());
-            cart.Add(new Item(itemCon.getId(), name, itemCon.getPrice(), count, itemCon.getPathImage(), itemCon.getDescription()));
+            cart.Add(new Item(itemCon.getId(), itemCon.getName(), itemCon.getPrice(), count, itemCon.getPathImage(), itemCon.getDescription()));
             await Database.addItemToCart(email, id, count, itemCon.getPrice());
         }
     }

@@ -22,29 +22,47 @@
 </div>
 
 <div class="purchase-history">
-        <h1>Products</h1>
-        <table>
-            <thead>
+    <h1>Historia zakupów</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>img</th>
+            <th>ilość</th>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Telefon</th>
+            <th>Kod pocztowy</th>
+            <th>Adres</th>
+            <th>Paczkomat</th>
+            <th>Całkowita cena</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model.Orders)
+            {
                 <tr>
-                    <th>Imię</th>
-                    <th>Nazwisko</th>
-                    <th>Nazwa Produktu</th>
-                    <th>Cena</th>
-                    <th>Ilość</th>
+                    @foreach (var item in order.items)
+                                                        {
+                                                            <td><img class="profile__images" src="@item.pathImage"></img></td>
+                                                            <td>@item.userCount</td>
+                                                            
+                                                        }
+                    <td>@order.name</td>
+                    <td>@order.lastName</td>
+                    <td>@order.phone</td>
+                    <td>@order.postalCode</td>
+                    <td>@order.address</td>
+                    <td>@order.APM</td>
+                    <td>@order.totalPrice</td>
+                    <td>@order.status</td>
+
                 </tr>
-            </thead>
-            <tbody>
-                @* @foreach () *@
-                {
-                    <tr>
-                        <td>Date</td>
-                        <td>Nazwa</td>
-                        <td>Ilość</td>
-                        <td>Cena</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+                
+               
+            }
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

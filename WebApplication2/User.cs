@@ -67,13 +67,13 @@ public class User
         var item = cart.FirstOrDefault(i => i.id == id);
         if (item != null)
         {
-            item.setCount(count);
+            item.userCount = count;
             await Database.updateItemInCart(email, id, count);
         }
         else if(item == null)
         {
             await Logger.LogAsync(email + " " + name + " " + count + " " + itemCon.getPrice());
-            cart.Add(new Item(itemCon.getId(), itemCon.getName(), itemCon.getPrice(), count, itemCon.getPathImage(), itemCon.getDescription()));
+            cart.Add(new Item(itemCon.getId(), itemCon.getName(), itemCon.getPrice(), itemCon.getPathImage(),count,  itemCon.getDescription()));
             await Database.addItemToCart(email, id, count, itemCon.getPrice());
         }
     }

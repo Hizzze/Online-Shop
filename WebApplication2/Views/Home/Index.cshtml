@@ -48,7 +48,8 @@
                                         <!-- Счетчик -->
                                         <div class="items counter-wrapper">
                                             <div class="items__control" data-action="minus">-</div>
-                                            <input type="text" class="items__current" data-counter id="counter" name="counter" value="@item.userCount" readonly />
+                                           <input type="text" name="count" class="items__current" data-usercount="@item.userCount" data-counter="@item.userCount" value="@item.userCount" >
+                                            @* <div class="items__current" data-counter>@item.userCount</div> *@
                                             <div class="items__control" data-action="plus">+</div>
                                         </div>
                                         <!-- // Счетчик -->

@@ -18,7 +18,7 @@
         <h4 class="card-title cart__main-title">Twoje zamówienie</h4>
         @if (Model.item.Count > 0)
         {
-            foreach (var item in Model.item)
+            @foreach (var item in Model.item)
             {
                 <div class="cart__item">
                     <div class="cart__image">
@@ -26,7 +26,8 @@
                     </div>
                     <div class="cart__item-text">
                         <h5 class="cart__item-title">@item.name</h5>
-                        <p class="cart__item-details">Ilość: @item.userCount</p>
+                        <p class="cart__item-details" data-usercount="@item.userCount">@item.userCount</p>
+
                         <p class="cart__item-details">Cena: @item.price zł</p>
                     </div>
                     <button type="submit" class="section__btn cart__btn-del" name="id" value="@item.id">Usuń</button>

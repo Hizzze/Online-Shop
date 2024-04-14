@@ -1,4 +1,4 @@
-﻿/*window.addEventListener('click', function (event) {
+﻿window.addEventListener('click', function (event) {
     // Находим счетчик товаров в корзине
     const counterCart = document.querySelector('.counter__cart');
 
@@ -21,24 +21,10 @@
             counterCart.innerText = currentCount - 1;
         }
     }
-});*/
-document.querySelectorAll('.items__control').forEach(function(button) {
-    button.addEventListener('click', function() {
-        var counter = document.getElementById('counter');
-        var currentValue = parseInt(counter.value);
-
-        if (this.dataset.action === 'minus') {
-            if (currentValue > 0) {
-                counter.value = currentValue - 1;
-            }
-        } else if (this.dataset.action === 'plus') {
-            counter.value = currentValue + 1;
-        }
-    });
 });
 
-
 // Получаем все элементы с классом "items__control" в каждой карточке продукта
+// Находим все элементы с классом .items__control
 const itemControls = document.querySelectorAll('.items__control');
 
 // Перебираем все найденные элементы
@@ -50,24 +36,25 @@ itemControls.forEach(function(itemControl) {
         // Находим счетчик внутри данной карточки продукта
         const counter = cardBody.querySelector('.items__current');
         // Получаем текущее значение счетчика
-        let currentValue = parseInt(counter.innerText);
+        let currentValue = parseInt(counter.value); // Используем value вместо innerText
 
         // Если была нажата кнопка "плюс"
         if (event.target.dataset.action === 'plus') {
-            // Увеличиваем значение счетчика на 1, если не достигнут максимум
             if (currentValue < 20) {
-                counter.innerText = currentValue + 1;
+                currentValue++; // Увеличиваем значение счетчика
+                counter.value = currentValue; // Обновляем значение поля ввода
+                counter.setAttribute('data-usercount', currentValue); // Обновляем атрибут data-usercount
             }
-        }
-        // Если была нажата кнопка "минус"
-        else if (event.target.dataset.action === 'minus') {
-            // Уменьшаем значение счетчика на 1, если не достигнут минимум
+        } else if (event.target.dataset.action === 'minus') {
             if (currentValue > 0) {
-                counter.innerText = currentValue - 1;
+                currentValue--; // Уменьшаем значение счетчика
+                counter.value = currentValue; // Обновляем значение поля ввода
+                counter.setAttribute('data-usercount', currentValue); // Обновляем атрибут data-usercount
             }
         }
     });
 });
+
 function toggleDropdown() {
     var dropdownContent = document.getElementById("dropdownContent");
     dropdownContent.classList.toggle("show");

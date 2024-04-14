@@ -6,7 +6,7 @@ public class Item
     public string name;
     public decimal price;
     public int count;
-    public int userCount = 0;
+    public int userCount;
     public string pathImage;
     public string description;
     
@@ -22,12 +22,12 @@ public class Item
         this.id = id;
         this.userCount = userCount;
     }
-    public Item(int id, string name, decimal price, int userCount, string pathImage, string description)
+    public Item(int id, string name, decimal price, int count, string pathImage, string description)
     {
         this.id = id;
         this.name = name;
         this.price = price;
-        this.userCount = userCount;
+        this.count = count;
         this.pathImage = pathImage;
         this.description = description;
     }
@@ -77,4 +77,5 @@ public class Item
     {
         return description;
     }
+
 }

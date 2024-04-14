@@ -23,46 +23,49 @@
 
 <div class="purchase-history">
     <h1>Historia zakupów</h1>
-    <table>
-        <thead>
-        <tr>
-            <th>img</th>
-            <th>ilość</th>
-            <th>Imię</th>
-            <th>Nazwisko</th>
-            <th>Telefon</th>
-            <th>Kod pocztowy</th>
-            <th>Adres</th>
-            <th>Paczkomat</th>
-            <th>Całkowita cena</th>
-            <th>Status</th>
-        </tr>
-        </thead>
-        <tbody>
-            @foreach (var order in Model.Orders)
-            {
+    @if (Model.Orders.Count > 0)
+    {
+        <table>
+            <thead>
                 <tr>
-                    @foreach (var item in order.items)
-                                                        {
-                                                            <td><img class="profile__images" src="@item.pathImage"></img></td>
-                                                            <td>@item.userCount</td>
-                                                            
-                                                        }
-                    <td>@order.name</td>
-                    <td>@order.lastName</td>
-                    <td>@order.phone</td>
-                    <td>@order.postalCode</td>
-                    <td>@order.address</td>
-                    <td>@order.APM</td>
-                    <td>@order.totalPrice</td>
-                    <td>@order.status</td>
-
+                    <th>img</th>
+                    <th>ilość</th>
+                    <th>Imię</th>
+                    <th>Nazwisko</th>
+                    <th>Telefon</th>
+                    <th>Kod pocztowy</th>
+                    <th>Adres</th>
+                    <th>Paczkomat</th>
+                    <th>Całkowita cena</th>
+                    <th>Status</th>
                 </tr>
-                
-               
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var order in Model.Orders)
+                {
+                    <tr>
+                        @foreach (var item in order.items)
+                        {
+                            <td><img class="profile__images" src="@item.pathImage"></img></td>
+                            <td>@item.userCount</td>
+                        }
+                        <td>@order.name</td>
+                        <td>@order.lastName</td>
+                        <td>@order.phone</td>
+                        <td>@order.postalCode</td>
+                        <td>@order.address</td>
+                        <td>@order.APM</td>
+                        <td>@order.totalPrice</td>
+                        <td>@order.status</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="cart__empty-text">Twój profil jest pusty.</p>
+    }
 </div>
 </body>
 </html>

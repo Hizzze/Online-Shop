@@ -26,9 +26,9 @@
                     </div>
                     <div class="cart__item-text">
                         <h5 class="cart__item-title">@item.name</h5>
-                        <p class="cart__item-details" data-usercount="@item.userCount">@item.userCount</p>
+                        <p class="cart__item-details" data-usercount="@item.userCount">@item.userCount szt.</p>
 
-                        <p class="cart__item-details">Cena: @item.price zł</p>
+                        <p class="cart__item-details">Cena: @(item.price * item.userCount)zł</p>
                     </div>
                     <button type="submit" class="section__btn cart__btn-del" name="id" value="@item.id">Usuń</button>
                 </div>

@@ -40,7 +40,8 @@ public class User
 
     public async Task clearCart()
     {
-        
+        cart.Clear();
+        await Database.DeleteUserCart(email);
     }
     public async Task loadCart()
     {
@@ -97,5 +98,6 @@ public class User
         await Database.CreateOrderWithItemsAsync(order.email, order.name, order.lastName, order.phone, order.postalCode, 
             order.address, order.APM, order.totalPrice, order.status, order.items);
         loadOrders();
+        clearCart();
     }
 }

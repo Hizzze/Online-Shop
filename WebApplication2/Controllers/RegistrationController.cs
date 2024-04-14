@@ -17,9 +17,20 @@ public class RegistrationController : Controller
         {
             return View(model);
         }
-        Account account = new Account(model.Email, model.Password);
-        account.registerAccount();
-        return View(model);
+
+        if (await Database.IsUserRegistered(model.Email))
+        {
+            ModelState.AddModelError(string.Empty, "Użytkownik o podanym adresie email już istnieje.");
+            return View(model);
+            
+        }
+        else
+        {
+            Account account = new Account(model.Email, model.Password);
+            account.registerAccount();
+            return View(model);
+        }
     }
+
    
 }

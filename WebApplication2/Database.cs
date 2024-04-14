@@ -17,7 +17,6 @@ public class Database
             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
         IConfigurationRoot config = builder.Build();
         connectionString = config.GetConnectionString("DefaultConnection");
-
     }
     
     public static async Task<bool> IsUserRegistered(string email)
@@ -45,6 +44,27 @@ public class Database
         }
     }
 
+    public static async Task DeleteUserCart(string email)
+    {
+        using (var connection = new MySqlConnection(connectionString))
+        {
+            try
+            {
+                await connection.OpenAsync();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = "DELETE FROM users_carts WHERE email = @email";
+                    command.Parameters.AddWithValue("@email", email);
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                await Logger.LogAsync("Error on deleting user cart DB: " + ex.Message);
+                throw;
+            }
+        }
+    }
     public static async Task RegisterInDatabase(string email, string password)
     {
         using (var connection = new MySqlConnection(connectionString))
@@ -67,7 +87,6 @@ public class Database
             }
         }
     }
-    
     public static bool onBuyItem(string name, int count)
     {
         using (var connection = new MySqlConnection(connectionString))

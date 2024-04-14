@@ -33,10 +33,30 @@ public class BuyController : Controller
     [HttpPost]
     public async Task<IActionResult> createOrder(BuyViewModel model)
     {
-        await Logger.LogAsync("123123123123");
-        if (ModelState.IsValid)
+        await Logger.LogAsync("1");
+        var user = await users.getUserInfo(User.Identity.Name);
+        if (ModelState.IsValid == false)
         {
-            var user = await users.getUserInfo(User.Identity.Name);
+            model.items = user.cart;
+            if (ModelState.IsValid == false)
+            {
+                var modelErrors = ModelState.SelectMany(x => x.Value.Errors)
+                    .Select(x => x.ErrorMessage);
+                // Здесь можно использовать общие ошибки валидации модели
+                foreach (var error in modelErrors)
+                {
+                    await Logger.LogAsync($"Ошибка валидации модели: {error}");
+                }
+
+                await Logger.LogAsync(model.email + " " + model.name);
+            }
+           
+        }
+
+        /*if (ModelState.IsValid)
+        {
+            await Logger.LogAsync("valid");
+            
             if (user == null)
             {
                 ModelState.AddModelError("", "User not found.");
@@ -48,6 +68,7 @@ public class BuyController : Controller
         }
         else
         {
+            ModelState.AddModelError("", "Please fix the following errors:");
             // Переобновить данные в модели перед возвратом представления
             var user = await users.getUserInfo(User.Identity.Name);
             if (user != null)
@@ -57,7 +78,7 @@ public class BuyController : Controller
                 model.items = user.cart;
                 model.totalPrice = price;
             }
-        }
+        }*/
         return View(model);
 
     }

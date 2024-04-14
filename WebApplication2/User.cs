@@ -38,6 +38,10 @@ public class User
         return email.GetHashCode();
     }
 
+    public async Task clearCart()
+    {
+        
+    }
     public async Task loadCart()
     {
         if (!cart.Any())
@@ -88,7 +92,7 @@ public class User
             postalCode = order.postalCode;
             address = order.address;
             APM = order.APM;
-            await Database.updateUserInfo(email, name, lastName, phone, postalCode, address, APM);
+            await Database.updateUserInfo(email, name, lastName, phone, address, postalCode,APM);
         }
         await Database.CreateOrderWithItemsAsync(order.email, order.name, order.lastName, order.phone, order.postalCode, 
             order.address, order.APM, order.totalPrice, order.status, order.items);

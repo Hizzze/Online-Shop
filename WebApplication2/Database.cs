@@ -123,30 +123,6 @@ public class Database
             }
         }
     }
-
-    public static async Task makeOrderItems(int order_id, int item_id, int item_count)
-    {
-        using (var connection = new MySqlConnection(connectionString))
-        {
-            try
-            {
-                await connection.OpenAsync();
-                using (var command = connection.CreateCommand())
-                {
-                    command.CommandText = "INSERT INTO orders_items (order_id, item_id, item_count)" +
-                                          " VALUES (@value1, @value2, @value3)";
-                    command.Parameters.AddWithValue("@value1", order_id);
-                    command.Parameters.AddWithValue("@vlaue2", item_id);
-                    command.Parameters.AddWithValue("@value3", item_count);
-                    //await command.ExecuteNonQueryAsync();
-                }
-            }
-            catch (Exception ex)
-            {
-                await Logger.LogAsync("Error on making order items DB: " + ex.Message, Logger.LogLevel.Error);
-            }
-        }
-    }
     public static async Task<bool> CreateOrderWithItemsAsync(string email, string name, string lastName, string phone,
         string postalCode, string address, string APM, decimal totalPrice, string status, HashSet<Item> items)
 {

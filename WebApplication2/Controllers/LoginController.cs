@@ -57,9 +57,11 @@ public class LoginController : Controller
         {
             Email = user.email,
             Name = user.name,
+            LastName = user.lastName,
             Phone = user.phone,
             Address = user.address,
             PostalCode = user.postalCode,
+            APM = user.APM,
             Orders = user.orders
         };
         return View(model);

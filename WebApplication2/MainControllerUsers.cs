@@ -6,8 +6,8 @@ public class MainControllerUsers
 
     public async Task addUserToList(string email)
     {
-        var (name, phone,address,postalCode) = await Database.getUserInfoDatabase(email);
-        var user = new User(email, name, phone, address, postalCode);
+        var (name, lastName, phone,address,postalCode, APM) = await Database.getUserInfoDatabase(email);
+        var user = new User(email, name, lastName, phone, address, postalCode, APM);
         await user.loadCart();
         await user.loadOrders();
         userList.Add(user);
@@ -28,6 +28,4 @@ public class MainControllerUsers
         }
         return user;
     }
-
-
 }

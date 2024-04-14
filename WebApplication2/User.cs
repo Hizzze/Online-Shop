@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApplication2;
@@ -7,22 +8,26 @@ public class User
 {
     public string email;
     public string? name;
+    public string? lastName;
     public string? phone;
     public string? address;
     public string? postalCode;
+    public string? APM;
     public HashSet<Item> cart = new HashSet<Item>();
     public List<Order> orders = new List<Order>();
     public User(string email)
     {
         this.email = email;
     }
-    public User(string email, string? name, string? phone, string? address, string? postalCode)
+    public User(string email, string? name, string? lastName, string? phone, string? address, string? postalCode, string? APM)
     {
         this.email = email;
         this.name = name;
+        this.lastName = lastName;
         this.phone = phone;
         this.address = address;
         this.postalCode = postalCode;
+        this.APM = APM;
     }
     public override bool Equals(object? obj)
     {
@@ -74,12 +79,17 @@ public class User
     }
     public async Task createOrder(Order order)
     {
-        /*Database.makeOrder(order.email, order.name, order.lastName, 
-            order.phone, order.postalCode, order.address, order.APM, order.totalPrice);
-        foreach (var item in order.items)
+        if (!name.Equals(order.name) || !lastName.Equals(order.lastName) || !phone.Equals(order.phone)
+            || !postalCode.Equals(order.postalCode) || !address.Equals(order.address) || !APM.Equals(order.APM))
         {
-            await Database.makeOrderItems(order.id, item.getId(), item.getUserCount());
-        }*/
+            name = order.name;
+            lastName = order.lastName;
+            phone = order.phone;
+            postalCode = order.postalCode;
+            address = order.address;
+            APM = order.APM;
+            await Database.updateUserInfo(email, name, lastName, phone, postalCode, address, APM);
+        }
         await Database.CreateOrderWithItemsAsync(order.email, order.name, order.lastName, order.phone, order.postalCode, 
             order.address, order.APM, order.totalPrice, order.status, order.items);
         loadOrders();

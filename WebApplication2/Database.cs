@@ -1,6 +1,7 @@
 using System.ComponentModel.Design;
 using Microsoft.Extensions.Configuration;
 using Hash;
+using Microsoft.Extensions.Configuration.CommandLine;
 using Microsoft.Extensions.Logging.Configuration;
 using MySqlConnector;
 namespace WebApplication2;
@@ -469,7 +470,8 @@ public class Database
     return orders;
 }
 
-    public static async Task<(string?, string?, string?, string?)> getUserInfoDatabase(string email)
+    public static async Task updateUserInfo(string email, string name, string lastName, string phone, string address,
+        string postalCode, string APM)
     {
         using (var connection = new MySqlConnection(connectionString))
         {
@@ -478,16 +480,46 @@ public class Database
                 await connection.OpenAsync();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "SELECT name, phone, address, postalcode FROM users WHERE email = @value1";
+                    command.CommandText = "UPDATE users SET name = @name, last_name = @lastName, phone = @phone," +
+                                          "postalcode = @postalCode, address = @address, apm = @apm WHERE email = @email ";
+                    command.Parameters.AddWithValue("@name", name);
+                    command.Parameters.AddWithValue("@lastName", lastName);
+                    command.Parameters.AddWithValue("@phone", phone);
+                    command.Parameters.AddWithValue("@postalCode", postalCode);
+                    command.Parameters.AddWithValue("@address", address);
+                    command.Parameters.AddWithValue("@apm", APM);
+                    command.Parameters.AddWithValue("@email", email);
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                await Logger.LogAsync("Error on updating user info DB: " + ex.Message, Logger.LogLevel.Error);
+                throw;
+            }
+        }
+    }
+    public static async Task<(string?, string?, string?, string?, string?, string?)> getUserInfoDatabase(string email)
+    {
+        using (var connection = new MySqlConnection(connectionString))
+        {
+            try
+            {
+                await connection.OpenAsync();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = "SELECT name, last_name, phone, address, postalcode, APM FROM users WHERE email = @value1";
                     command.Parameters.AddWithValue("@value1", email);
                     using (var reader = await command.ExecuteReaderAsync())
                     {
                         if (await reader.ReadAsync())
                         {
                             return (reader.IsDBNull(reader.GetOrdinal("name")) ? "null" : reader["name"].ToString(),
+                                reader.IsDBNull(reader.GetOrdinal("last_name")) ? "null" : reader["last_name"].ToString(),
                                 reader.IsDBNull(reader.GetOrdinal("phone")) ? "null" : reader["phone"].ToString(),
                                 reader.IsDBNull(reader.GetOrdinal("address")) ? "null" : reader["address"].ToString(),
-                                reader.IsDBNull(reader.GetOrdinal("postalcode")) ? "null" : reader["postalcode"].ToString());
+                                reader.IsDBNull(reader.GetOrdinal("postalcode")) ? "null" : reader["postalcode"].ToString(),
+                                reader.IsDBNull(reader.GetOrdinal("APM")) ? "null" : reader["APM"].ToString());
                         }
                     }
                 }
@@ -498,7 +530,7 @@ public class Database
             }
         }
 
-        return ("null", "null", "null", "null");
+        return ("null", "null", "null", "null", "null", "null");
     }
     /*public static async Task getAccountsList()
     {

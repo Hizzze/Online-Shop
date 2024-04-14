@@ -33,6 +33,7 @@ public class BuyController : Controller
     [HttpPost]
     public async Task<IActionResult> createOrder(BuyViewModel model)
     {
+        await Logger.LogAsync("123123123123");
         if (ModelState.IsValid)
         {
             var user = await users.getUserInfo(User.Identity.Name);
@@ -41,8 +42,8 @@ public class BuyController : Controller
                 ModelState.AddModelError("", "User not found.");
                 return View(model);
             }
-            user.createOrder(new Order(model.email, model.name, model.lastName, model.phone, model.postalCode, 
-                model.address, model.APM, model.totalPrice, "Processing"));
+            await user.createOrder(new Order(user.cart, model.email, model.name, model.lastName, 
+                model.phone, model.postalCode, model.address, model.APM, model.totalPrice, "Processing"));
         }
         return View();
     }

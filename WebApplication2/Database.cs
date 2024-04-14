@@ -91,7 +91,7 @@ public class Database
         }
     }
     public static bool makeOrder(string email, string name, string lastName,string phone, string postalCode, string? address,
-        string? APM, string itemName, int itemCount, decimal totalPrice)
+        string? APM, decimal totalPrice)
     {
         using (var connection = new MySqlConnection(connectionString))
         {
@@ -101,7 +101,7 @@ public class Database
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText = "INSERT INTO orders (email, user_first_name, user_last_name, " +
-                                          "phone, postal_code, address, APM, item_name, item_count, total_price, status) " +
+                                          "phone, postal_code, address, APM, total_price, status) " +
                                           "VALUES (@value1, @value2, @value3, @value4, @value5, @value6, @value7, @value8, @value9, @value10)";
                     command.Parameters.AddWithValue("@value1", email);
                     command.Parameters.AddWithValue("@value2", name);
@@ -110,8 +110,6 @@ public class Database
                     command.Parameters.AddWithValue("@value5", postalCode);
                     command.Parameters.AddWithValue("@value6", address);
                     command.Parameters.AddWithValue("@value7", APM);
-                    command.Parameters.AddWithValue("@value8", itemName);
-                    command.Parameters.AddWithValue("@value9", itemCount);
                     command.Parameters.AddWithValue("@value10", totalPrice);
                     command.ExecuteNonQuery();
                     return true;
@@ -124,6 +122,92 @@ public class Database
             }
         }
     }
+
+    public static async Task makeOrderItems(int order_id, int item_id, int item_count)
+    {
+        using (var connection = new MySqlConnection(connectionString))
+        {
+            try
+            {
+                await connection.OpenAsync();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = "INSERT INTO orders_items (order_id, item_id, item_count)" +
+                                          " VALUES (@value1, @value2, @value3)";
+                    command.Parameters.AddWithValue("@value1", order_id);
+                    command.Parameters.AddWithValue("@vlaue2", item_id);
+                    command.Parameters.AddWithValue("@value3", item_count);
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                await Logger.LogAsync("Error on making order items DB: " + ex.Message, Logger.LogLevel.Error);
+            }
+        }
+    }
+    public static async Task<bool> CreateOrderWithItemsAsync(string email, string name, string lastName, string phone,
+        string postalCode, string address, string APM, decimal totalPrice, string status, HashSet<Item> items)
+{
+    using (var connection = new MySqlConnection(connectionString))
+    {
+        try
+        {
+            await connection.OpenAsync();
+            int orderId;
+            // Start a transaction
+            using (var transaction = await connection.BeginTransactionAsync())
+            {
+                // Insert the order
+                using (var command = connection.CreateCommand())
+                {
+                    command.Transaction = transaction;
+                    command.CommandText = "INSERT INTO orders (email, user_first_name, user_last_name, " +
+                                          "phone, postal_code, address, APM, total_price, status) " +
+                                          "VALUES (@value1, @value2, @value3, @value4, @value5, @value6, @value7, @value8, @value9)";
+                    command.Parameters.AddWithValue("@value1", email);
+                    command.Parameters.AddWithValue("@value2", name);
+                    command.Parameters.AddWithValue("@value3", lastName);
+                    command.Parameters.AddWithValue("@value4", phone);
+                    command.Parameters.AddWithValue("@value5", postalCode);
+                    command.Parameters.AddWithValue("@value6", address);
+                    command.Parameters.AddWithValue("@value7", APM);
+                    command.Parameters.AddWithValue("@value8", totalPrice);
+                    command.Parameters.AddWithValue("@value9", status);
+                    command.ExecuteNonQuery();
+                    // ... (rest of your parameters)
+
+                    await command.ExecuteNonQueryAsync();
+                    orderId = (int)command.LastInsertedId;  // Get the newly created order ID
+                }
+
+                // Insert order items
+                foreach (var item in items)
+                {
+                    using (var command = connection.CreateCommand())
+                    {
+                        command.Transaction = transaction;
+                        command.CommandText = @"INSERT INTO orders_items (order_id, item_id, item_count) 
+                                                VALUES (@orderId, @itemId, @itemCount)";
+                        command.Parameters.AddWithValue("@orderId", orderId);
+                        command.Parameters.AddWithValue("@itemId", item.getId());
+                        command.Parameters.AddWithValue("@itemCount", item.getUserCount());
+                        await command.ExecuteNonQueryAsync();
+                    }
+                }
+
+                // Commit the transaction
+                await transaction.CommitAsync();
+                return true; 
+            } 
+        }
+        catch (Exception ex)
+        {
+            await Logger.LogAsync("Error creating order with items: " + ex.Message, Logger.LogLevel.Error);
+            return false;
+        }
+    }
+}
 
     public static async Task<HashSet<Item>> getUserCart(string email)
     {
@@ -204,13 +288,13 @@ public class Database
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "SELECT name, price, count, path, description FROM items";
+                    command.CommandText = "SELECT id, name, price, count, path, description FROM items";
                     using (var reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            items.Add(new Item(reader.GetString(0), reader.GetDecimal(1), reader.GetInt32(2),
-                                reader.GetString(3), reader.GetString(4)));
+                            items.Add(new Item(reader.GetInt32(0),reader.GetString(1), reader.GetDecimal(2), reader.GetInt32(3),
+                                reader.GetString(4), reader.GetString(5)));
                         }
                     }
                 }

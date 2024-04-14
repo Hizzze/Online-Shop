@@ -2,6 +2,7 @@ namespace WebApplication2;
 
 public class Item
 {
+    public int id;
     public string name;
     public decimal price;
     public int count;
@@ -15,8 +16,9 @@ public class Item
         this.price = price;
         this.userCount = userCount;
     }
-    public Item(string name, decimal price, int count, string pathImage, string description)
+    public Item(int id, string name, decimal price, int count, string pathImage, string description)
     {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.count = count;
@@ -56,6 +58,15 @@ public class Item
         return pathImage;
     }
 
+    public int getId()
+    {
+        return id;
+    }
+
+    public int getUserCount()
+    {
+        return userCount;
+    }
     public string getDescription()
     {
         return description;

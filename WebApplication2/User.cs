@@ -57,14 +57,20 @@ public class User
         else if(item == null)
         {
             await Logger.LogAsync(email + " " + name + " " + count + " " + itemCon.getPrice());
-            cart.Add(new Item(name, itemCon.getPrice(), count, itemCon.getPathImage(), itemCon.getDescription()));
+            cart.Add(new Item(itemCon.getId(), name, itemCon.getPrice(), count, itemCon.getPathImage(), itemCon.getDescription()));
             await Database.addItemToCart(email, name, count, itemCon.getPrice());
         }
     }
 
     public async Task createOrder(Order order)
     {
-        Database.makeOrder(order.email, order.name, order.lastName, 
-            order.phone, order.postalCode, order.address, order.APM, order.itemName, order.itemCount, order.totalPrice);
+        /*Database.makeOrder(order.email, order.name, order.lastName, 
+            order.phone, order.postalCode, order.address, order.APM, order.totalPrice);
+        foreach (var item in order.items)
+        {
+            await Database.makeOrderItems(order.id, item.getId(), item.getUserCount());
+        }*/
+        await Database.CreateOrderWithItemsAsync(order.email, order.name, order.lastName, order.phone, order.postalCode, 
+            order.address, order.APM, order.totalPrice, order.status, order.items);
     }
 }

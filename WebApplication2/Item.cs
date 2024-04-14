@@ -31,6 +31,15 @@ public class Item
         this.pathImage = pathImage;
         this.description = description;
     }
+    public Item(int id, string name, decimal price, string pathImage, int userCount, string description)
+    {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.userCount = userCount;
+        this.pathImage = pathImage;
+        this.description = description;
+    }
     public override bool Equals(object? obj)
     {
         return obj is Item item && name == item.name;

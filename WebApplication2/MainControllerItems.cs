@@ -3,16 +3,37 @@ namespace WebApplication2;
 public class MainControllerItems
 {
     public List<Item> items = new List<Item>();
+    public static List<Item> itemsSync = new List<Item>();
     private SemaphoreSlim semaphore = new SemaphoreSlim(1, 1);
     public MainControllerItems()
     {
         items = Database.getItemsList();
+        itemsSync = items;
     }
     public void onReload()
     {
         items = Database.getItemsList();
+        itemsSync = items;
     }
 
+    public static async Task<string> getItemPathImageByName(string itemName)
+    {
+        Item item = itemsSync.FirstOrDefault(i => i.name == itemName);
+        if (item != null)
+        {
+            return item.pathImage;
+        }
+        return null;
+    }
+    public static async Task<string> getItemDescriptionByName(string itemName)
+    {
+        Item item = itemsSync.FirstOrDefault(i => i.name == itemName);
+        if (item != null)
+        {
+            return item.description;
+        }
+        return null;
+    }
     public async Task<bool> onBuyItem(string name, int count)
     {
         await semaphore.WaitAsync();

@@ -7,7 +7,8 @@ public class MainControllerUsers
     public async Task addUserToList(string email)
     {
         var (name, phone,address,postalCode) = await Database.getUserInfoDatabase(email);
-        userList.Add(new User(email, name, phone, address, postalCode));
+        var user = new User(email, name, phone, address, postalCode);
+        userList.Add(user);
     }
     
     public async Task<User> getUserInfo(string email)

@@ -23,7 +23,6 @@ public class User
         this.phone = phone;
         this.address = address;
         this.postalCode = postalCode;
-        
     }
     public override bool Equals(object? obj)
     {
@@ -33,7 +32,20 @@ public class User
     {
         return email.GetHashCode();
     }
-    
+
+    public async Task loadCart()
+    {
+        if (!cart.Any())
+        {
+            var items = await Database.getUserCart(email);
+            foreach (var item in items)
+            {
+                item.pathImage = await MainControllerItems.getItemPathImageByName(item.name);
+                item.description = await MainControllerItems.getItemDescriptionByName(item.name);
+            }
+            cart = items;
+        }
+    }
     public async Task addItemToCart(Item itemCon, string name, int count)
     {
         var item = cart.FirstOrDefault(i => i.name == name);
@@ -52,8 +64,7 @@ public class User
 
     public async Task createOrder(Order order)
     {
-        orders.Add(order);
         Database.makeOrder(order.email, order.name, order.lastName, 
-            order.phone, order.postalCode, order.address, order.APM, "test", 5, 150);
+            order.phone, order.postalCode, order.address, order.APM, order.itemName, order.itemCount, order.totalPrice);
     }
 }

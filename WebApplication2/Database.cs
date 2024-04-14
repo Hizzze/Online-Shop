@@ -18,7 +18,7 @@ public class Database
         connectionString = config.GetConnectionString("DefaultConnection");
 
     }
-
+    
     public static async Task<bool> IsUserRegistered(string email)
     {
 
@@ -123,6 +123,38 @@ public class Database
                 return false;
             }
         }
+    }
+
+    public static async Task<HashSet<Item>> getUserCart(string email)
+    {
+        HashSet<Item> userCart = new HashSet<Item>();
+        using (var connection = new MySqlConnection(connectionString))
+        {
+            try
+            {
+                await connection.OpenAsync();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = "SELECT item_name, count, price FROM users_carts WHERE email = @value1";
+                    command.Parameters.AddWithValue("@value1", email);
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            var item = new Item(reader["item_name"].ToString(), reader.GetDecimal("price"),
+                                reader.GetInt32("count"));
+                            userCart.Add(item);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                await Logger.LogAsync("Error on getting user cart DB: " + ex.Message, Logger.LogLevel.Error);
+                throw;
+            }
+        }
+        return userCart;
     }
     public static async Task<bool> verifyUserData(string email, string password)
     {
@@ -246,7 +278,45 @@ public class Database
             }
         }
     }
-    
+
+    public static async Task<HashSet<Order>> getOrdersForUser(string email)
+    {
+        HashSet<Order> orders = new HashSet<Order>();
+        using (var connection = new MySqlConnection(connectionString))
+        {
+            try
+            {
+                await connection.OpenAsync();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText =
+                        "SELECT id,email, user_first_name, user_last_name, phone, postal_code, address, APM, " +
+                        "item_name, item_count, total_price, status FROM orders WHERE email = @value1";
+                    command.Parameters.AddWithValue("@value1", email);
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            orders.Add(new Order(reader.GetInt32("id"), reader["email"].ToString(),
+                                reader["user_first_name"].ToString(), reader["user_last_name"].ToString(),
+                                reader["phone"].ToString(),
+                                reader["postal_code"].ToString(), reader["address"].ToString(),
+                                reader["APM"].ToString(),
+                                reader["item_name"].ToString(), reader.GetInt32("count"),
+                                reader.GetDecimal("total_price"),
+                                reader["status"].ToString()));
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                await Logger.LogAsync("Error on getting orders for user DB: " + ex.Message, Logger.LogLevel.Error);
+                throw;
+            }
+        }
+        return orders;
+    }
     public static async Task<(string?, string?, string?, string?)> getUserInfoDatabase(string email)
     {
         using (var connection = new MySqlConnection(connectionString))

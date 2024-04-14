@@ -41,9 +41,9 @@ public class BuyController : Controller
                 ModelState.AddModelError("", "User not found.");
                 return View(model);
             }
-            user.createOrder(new Order(model.email, model.items, model.name, model.lastName, model.phone, model.postalCode, model.address, model.APM, 150, "Processing"));
+            user.createOrder(new Order(model.email, model.name, model.lastName, model.phone, model.postalCode, 
+                model.address, model.APM, model.totalPrice, "Processing"));
         }
-
         return View();
     }
 }

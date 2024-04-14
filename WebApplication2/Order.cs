@@ -30,7 +30,7 @@ public class Order
     }
 
     public Order(int id, string email, string name, string lastName, string phone, string postalCode, string address, string APM,
-        string itemName, int itemCount, decimal totalPrice, string status)
+decimal totalPrice, string status, HashSet<Item> items)
     {
         this.id = id;
         this.email = email;
@@ -42,6 +42,7 @@ public class Order
         this.APM = APM;
         this.totalPrice = totalPrice;
         this.status = status;
+        this.items = items;
     }
 
     public Order(HashSet<Item> items, string email, string name, string lastName, string phone, string postalCode, string address,

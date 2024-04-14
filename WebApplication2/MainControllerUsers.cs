@@ -9,9 +9,15 @@ public class MainControllerUsers
         var (name, phone,address,postalCode) = await Database.getUserInfoDatabase(email);
         var user = new User(email, name, phone, address, postalCode);
         await user.loadCart();
+        await user.loadOrders();
         userList.Add(user);
     }
-    
+
+    public async Task deleteUserFromList(string email)
+    {
+        var user = userList.FirstOrDefault(u => u.email == email);
+        userList.Remove(user);
+    }
     public async Task<User> getUserInfo(string email)
     {
         var user = userList.FirstOrDefault(u => u.email == email);

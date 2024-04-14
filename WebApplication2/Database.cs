@@ -205,7 +205,6 @@ public class Database
         }
     }
 }
-
     public static async Task removeFromUserCart(string email, int id)
     {
         using (var connection = new MySqlConnection(connectionString))
@@ -381,7 +380,7 @@ public class Database
         }
     }
 
-    public static async Task<HashSet<Order>> getOrdersForUser(string email)
+    /*public static async Task<HashSet<Order>> getOrdersForUser(string email)
     {
         HashSet<Order> orders = new HashSet<Order>();
         using (var connection = new MySqlConnection(connectionString))
@@ -404,9 +403,8 @@ public class Database
                                 reader["phone"].ToString(),
                                 reader["postal_code"].ToString(), reader["address"].ToString(),
                                 reader["APM"].ToString(),
-                                reader["item_name"].ToString(), reader.GetInt32("count"),
                                 reader.GetDecimal("total_price"),
-                                reader["status"].ToString()));
+                                reader["status"].ToString()), new Item());
                         }
                     }
                 }
@@ -418,7 +416,59 @@ public class Database
             }
         }
         return orders;
+    }*/
+    public static async Task<List<Order>> getOrdersForUser(string email)
+{
+    List<Order> orders = new List<Order>();
+    using (var connection = new MySqlConnection(connectionString))
+    {
+        try
+        {
+            await connection.OpenAsync();
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText =
+                    "SELECT o.id, o.email, o.user_first_name, o.user_last_name, o.phone, " +
+                    "o.postal_code, o.address, o.APM, o.total_price, o.status, i.item_id, i.item_count " +
+                    "FROM orders o " +
+                    "JOIN orders_items i ON o.id = i.order_id " +
+                    "WHERE o.email = @value1";
+                command.Parameters.AddWithValue("@value1", email);
+                using (var reader = await command.ExecuteReaderAsync())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        int orderId = reader.GetInt32("id");
+                        string orderEmail = reader.GetString("email");
+                        string firstName = reader.GetString("user_first_name");
+                        string lastName = reader.GetString("user_last_name");
+                        string phone = reader.GetString("phone");
+                        string postalCode = reader.GetString("postal_code");
+                        string address = reader.GetString("address");
+                        string apm = reader.GetString("APM");
+                        decimal totalPrice = reader.GetDecimal("total_price");
+                        string status = reader.GetString("status");
+                        Order order = new Order(orderId, orderEmail, firstName, lastName, phone, postalCode, address, apm, totalPrice, status, new HashSet<Item>());
+                        int id = reader.GetInt32("item_id");
+                        int itemCount = reader.GetInt32("item_count");
+                        Item item = new Item(id, itemCount);
+                        item = await MainControllerItems.buildItem(item);
+                        order.items.Add(item);
+                        orders.Add(order);
+                    }
+                }
+            }
+            return orders;
+        }
+        catch (Exception ex)
+        {
+            await Logger.LogAsync("Error on getting orders for user DB: " + ex.Message, Logger.LogLevel.Error);
+            throw;
+        }
     }
+    return orders;
+}
+
     public static async Task<(string?, string?, string?, string?)> getUserInfoDatabase(string email)
     {
         using (var connection = new MySqlConnection(connectionString))

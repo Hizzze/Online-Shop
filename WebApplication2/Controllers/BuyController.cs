@@ -34,43 +34,18 @@ public class BuyController : Controller
     public async Task<IActionResult> createOrder(BuyViewModel model)
     {
         var user = await users.getUserInfo(User.Identity.Name);
-        /*await Logger.LogAsync("1");
-        
-        if (ModelState.IsValid == false)
-        {
-            model.items = user.cart;
-            if (ModelState.IsValid == false)
-            {
-                var modelErrors = ModelState.SelectMany(x => x.Value.Errors)
-                    .Select(x => x.ErrorMessage);
-                // Здесь можно использовать общие ошибки валидации модели
-                foreach (var error in modelErrors)
-                {
-                    await Logger.LogAsync($"Ошибка валидации модели: {error}");
-                }
-
-                await Logger.LogAsync(model.email + " " + model.name + " " + user.cart.FirstOrDefault()?.name 
-                                      + " " + model.items.FirstOrDefault()?.name);
-            }
-           
-        }*/
-
         if (ModelState.IsValid)
         {
-            await Logger.LogAsync("valid");
             if (user == null)
             {
                 ModelState.AddModelError("", "User not found.");
                 return View(model);
             }
-            await Logger.LogAsync("email: "+ model.email);
             await user.createOrder(new Order(user.cart, model.email, model.name, model.lastName, 
                 model.phone, model.postalCode, model.address, model.APM, model.totalPrice, "Processing"));
         }
         else
         {
-            ModelState.AddModelError("", "Please fix the following errors:");
-            // Переобновить данные в модели перед возвратом представления
             if (user != null)
             {
                 decimal price = user.cart.Sum(item => item.price * 2);

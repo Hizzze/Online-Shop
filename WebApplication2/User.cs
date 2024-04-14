@@ -48,6 +48,10 @@ public class User
         }
     }
 
+    public async Task loadOrders()
+    {
+        orders = await Database.getOrdersForUser(email);
+    }
     public async Task removeFromCart(Item item)
     {
         await Database.removeFromUserCart(email, item.id);
@@ -68,7 +72,6 @@ public class User
             await Database.addItemToCart(email, id, count, itemCon.getPrice());
         }
     }
-
     public async Task createOrder(Order order)
     {
         /*Database.makeOrder(order.email, order.name, order.lastName, 
@@ -79,5 +82,6 @@ public class User
         }*/
         await Database.CreateOrderWithItemsAsync(order.email, order.name, order.lastName, order.phone, order.postalCode, 
             order.address, order.APM, order.totalPrice, order.status, order.items);
+        loadOrders();
     }
 }

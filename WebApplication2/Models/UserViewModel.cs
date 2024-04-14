@@ -7,5 +7,6 @@ public class UserViewModel
     public string? Phone { get; set; }
     public string? Address { get; set; }
     public string? PostalCode { get; set; }
-    
+
+    public List<Order> Orders = new List<Order>();
 }

@@ -26,6 +26,32 @@ public class MainControllerItems
         return null;
     }
 
+    public static async Task<Item> buildItem(Item item)
+    {
+        var itemSync = itemsSync.FirstOrDefault(i => i.id == item.id);
+        if (string.IsNullOrEmpty(item.name))
+        {
+            await Logger.LogAsync("Name sync: " + itemSync.name);
+            item.name = itemSync?.name;
+        }
+
+        if (item.price == 0 || item.price == null)
+        {
+            await Logger.LogAsync("Price sync: " + itemSync.price);
+            item.price = itemSync.price;
+        }
+
+        if (string.IsNullOrEmpty(item.pathImage))
+        {
+            item.pathImage = itemSync.pathImage;
+        }
+
+        if (string.IsNullOrEmpty(item.description))
+        {
+            item.description = itemSync.description;
+        }
+        return item;
+    }
     public static async Task<string> getItemNameById(int id)
     {
         Item item = itemsSync.FirstOrDefault(i => i.id == id);

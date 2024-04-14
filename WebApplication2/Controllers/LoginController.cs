@@ -29,7 +29,7 @@ public class LoginController : Controller
             var claimsIdentity = new ClaimsIdentity(claims, "CookieAuth");
             var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
             await HttpContext.SignInAsync("CookieAuth", claimsPrincipal);
-            mainControllerUsers.addUserToList(email);
+            await mainControllerUsers.addUserToList(email);
             return RedirectToAction("Index", "Home"); // Перенаправление после успешного входа
         }
         else
@@ -40,6 +40,7 @@ public class LoginController : Controller
     }
     public async Task<IActionResult> Logout()
     {
+        await mainControllerUsers.deleteUserFromList(User.Identity.Name);
         await HttpContext.SignOutAsync("CookieAuth");
         return RedirectToAction("Index", "Home");
     }
@@ -59,7 +60,7 @@ public class LoginController : Controller
             Phone = user.phone,
             Address = user.address,
             PostalCode = user.postalCode,
-
+            Orders = user.orders
         };
         return View(model);
     }

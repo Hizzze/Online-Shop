@@ -45,9 +45,10 @@ public class CartController : Controller
         var itemToRemove = user.cart.FirstOrDefault(i => i.id == id);
         if (itemToRemove != null)
         {
-            user.removeFromCart(itemToRemove);
+            await user.removeFromCart(itemToRemove);
         }
-        return RedirectToAction("Cart");
+
+        return RedirectToAction("Cart", "Cart");
     }
     
     [Authorize]
@@ -56,6 +57,6 @@ public class CartController : Controller
     {
         var user = await users.getUserInfo(User.Identity.Name);
         await user.addItemToCart(items.items.FirstOrDefault(i => i.id == id),id, count);
-        return RedirectToAction("Cart", "Cart");
+        return RedirectToAction("Index", "Home");
     }
 }

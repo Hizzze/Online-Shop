@@ -9,11 +9,17 @@ public class Item
     public int userCount = 0;
     public string pathImage;
     public string description;
-
+    
     public Item(int id, decimal price, int userCount)
     {
         this.id = id;
         this.price = price;
+        this.userCount = userCount;
+    }
+
+    public Item(int id, int userCount)
+    {
+        this.id = id;
         this.userCount = userCount;
     }
     public Item(int id, string name, decimal price, int count, string pathImage, string description)

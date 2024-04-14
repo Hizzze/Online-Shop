@@ -137,7 +137,7 @@ public class Database
                     command.Parameters.AddWithValue("@value1", order_id);
                     command.Parameters.AddWithValue("@vlaue2", item_id);
                     command.Parameters.AddWithValue("@value3", item_count);
-                    await command.ExecuteNonQueryAsync();
+                    //await command.ExecuteNonQueryAsync();
                 }
             }
             catch (Exception ex)
@@ -174,9 +174,6 @@ public class Database
                     command.Parameters.AddWithValue("@value7", APM);
                     command.Parameters.AddWithValue("@value8", totalPrice);
                     command.Parameters.AddWithValue("@value9", status);
-                    command.ExecuteNonQuery();
-                    // ... (rest of your parameters)
-
                     await command.ExecuteNonQueryAsync();
                     orderId = (int)command.LastInsertedId;  // Get the newly created order ID
                 }

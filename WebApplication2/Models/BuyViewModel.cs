@@ -4,7 +4,7 @@ namespace WebApplication2.Models;
 
 public class BuyViewModel
 {
-    public HashSet<Item> items { get; set; }
+    public HashSet<Item> items { get; set; } = new HashSet<Item>();
     public string email { get; set; }
     public string name { get; set; }
     public string lastName { get; set; }

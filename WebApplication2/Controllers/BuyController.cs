@@ -33,8 +33,9 @@ public class BuyController : Controller
     [HttpPost]
     public async Task<IActionResult> createOrder(BuyViewModel model)
     {
-        await Logger.LogAsync("1");
         var user = await users.getUserInfo(User.Identity.Name);
+        /*await Logger.LogAsync("1");
+        
         if (ModelState.IsValid == false)
         {
             model.items = user.cart;
@@ -48,15 +49,15 @@ public class BuyController : Controller
                     await Logger.LogAsync($"Ошибка валидации модели: {error}");
                 }
 
-                await Logger.LogAsync(model.email + " " + model.name);
+                await Logger.LogAsync(model.email + " " + model.name + " " + user.cart.FirstOrDefault()?.name 
+                                      + " " + model.items.FirstOrDefault()?.name);
             }
            
-        }
+        }*/
 
-        /*if (ModelState.IsValid)
+        if (ModelState.IsValid)
         {
             await Logger.LogAsync("valid");
-            
             if (user == null)
             {
                 ModelState.AddModelError("", "User not found.");
@@ -70,7 +71,6 @@ public class BuyController : Controller
         {
             ModelState.AddModelError("", "Please fix the following errors:");
             // Переобновить данные в модели перед возвратом представления
-            var user = await users.getUserInfo(User.Identity.Name);
             if (user != null)
             {
                 decimal price = user.cart.Sum(item => item.price * 2);
@@ -78,7 +78,7 @@ public class BuyController : Controller
                 model.items = user.cart;
                 model.totalPrice = price;
             }
-        }*/
+        }
         return View(model);
 
     }

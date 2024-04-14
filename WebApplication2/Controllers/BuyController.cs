@@ -42,6 +42,7 @@ public class BuyController : Controller
                 ModelState.AddModelError("", "User not found.");
                 return View(model);
             }
+            await Logger.LogAsync("email: "+ model.email);
             await user.createOrder(new Order(user.cart, model.email, model.name, model.lastName, 
                 model.phone, model.postalCode, model.address, model.APM, model.totalPrice, "Processing"));
         }

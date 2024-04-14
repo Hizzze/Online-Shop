@@ -22,12 +22,12 @@ public class Item
         this.id = id;
         this.userCount = userCount;
     }
-    public Item(int id, string name, decimal price, int count, string pathImage, string description)
+    public Item(int id, string name, decimal price, int userCount, string pathImage, string description)
     {
         this.id = id;
         this.name = name;
         this.price = price;
-        this.count = count;
+        this.userCount = userCount;
         this.pathImage = pathImage;
         this.description = description;
     }

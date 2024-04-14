@@ -20,7 +20,7 @@ public class BuyController : Controller
     public async Task<IActionResult> createOrder()
     {
         var user = await users.getUserInfo(User.Identity.Name);
-        decimal price = user.cart.Sum(item => item.price * 2);
+        decimal price = user.cart.Sum(item => item.price * item.userCount);
         var model = new BuyViewModel()
         {
             email = user.email,
@@ -41,8 +41,9 @@ public class BuyController : Controller
                 ModelState.AddModelError("", "User not found.");
                 return View(model);
             }
+            decimal price = user.cart.Sum(item => item.price * item.userCount); 
             await user.createOrder(new Order(user.cart, model.email, model.name, model.lastName, 
-                model.phone, model.postalCode, model.address, model.APM, model.totalPrice, "Processing"));
+                model.phone, model.postalCode, model.address, model.APM, price, "Processing"));
         }
         else
         {

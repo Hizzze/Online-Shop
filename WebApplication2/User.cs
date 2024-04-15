@@ -82,7 +82,7 @@ public class User
             await Database.addItemToCart(email, id, count, itemCon.getPrice());
         }
     }
-    public async Task createOrder(Order order)
+    public async Task<bool> createOrder(Order order)
     {
         if (!name.Equals(order.name) || !lastName.Equals(order.lastName) || !phone.Equals(order.phone)
             || !postalCode.Equals(order.postalCode) || !address.Equals(order.address) || !APM.Equals(order.APM))
@@ -95,9 +95,18 @@ public class User
             APM = order.APM;
             await Database.updateUserInfo(email, name, lastName, phone, address, postalCode,APM);
         }
-        await Database.CreateOrderWithItemsAsync(order.email, order.name, order.lastName, order.phone, order.postalCode, 
-            order.address, order.APM, order.totalPrice, order.status, order.items);
-        loadOrders();
-        clearCart();
+
+        if (await Database.CreateOrderWithItemsAsync(order.email, order.name, order.lastName, order.phone,
+                order.postalCode,
+                order.address, order.APM, order.totalPrice, order.status, order.items))
+        {
+            loadOrders();
+            clearCart();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

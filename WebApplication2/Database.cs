@@ -87,120 +87,86 @@ public class Database
             }
         }
     }
-    public static bool onBuyItem(string name, int count)
-    {
-        using (var connection = new MySqlConnection(connectionString))
-        {
-            try
-            {
-                connection.Open();
-                using (var command = connection.CreateCommand())
-                {
-                    command.CommandText = "UPDATE items SET count = count - @value1 WHERE name = @value2";
-                    command.Parameters.AddWithValue("@value1", count);
-                    command.Parameters.AddWithValue("@value2", name);
-                    command.ExecuteNonQuery();
-                    return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.Log("Error on buy item (database): " + ex.Message, Logger.LogLevel.Error);
-                return false;
-            }
-        }
-    }
-    public static bool makeOrder(string email, string name, string lastName,string phone, string postalCode, string? address,
-        string? APM, decimal totalPrice)
-    {
-        using (var connection = new MySqlConnection(connectionString))
-        {
-            try
-            {
-                connection.Open();
-                using (var command = connection.CreateCommand())
-                {
-                    command.CommandText = "INSERT INTO orders (email, user_first_name, user_last_name, " +
-                                          "phone, postal_code, address, APM, total_price, status) " +
-                                          "VALUES (@value1, @value2, @value3, @value4, @value5, @value6, @value7, @value8, @value9, @value10)";
-                    command.Parameters.AddWithValue("@value1", email);
-                    command.Parameters.AddWithValue("@value2", name);
-                    command.Parameters.AddWithValue("@value3", lastName);
-                    command.Parameters.AddWithValue("@value4", phone);
-                    command.Parameters.AddWithValue("@value5", postalCode);
-                    command.Parameters.AddWithValue("@value6", address);
-                    command.Parameters.AddWithValue("@value7", APM);
-                    command.Parameters.AddWithValue("@value10", totalPrice);
-                    command.ExecuteNonQuery();
-                    return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.Log("Error on making order for DB: " + ex.Message, Logger.LogLevel.Error);
-                return false;
-            }
-        }
-    }
+
     public static async Task<bool> CreateOrderWithItemsAsync(string email, string name, string lastName, string phone,
         string postalCode, string address, string APM, decimal totalPrice, string status, HashSet<Item> items)
-{
-    using (var connection = new MySqlConnection(connectionString))
     {
-        try
+        using (var connection = new MySqlConnection(connectionString))
         {
-            await connection.OpenAsync();
-            int orderId;
-            // Start a transaction
-            using (var transaction = await connection.BeginTransactionAsync())
+            try
             {
-                // Insert the order
-                using (var command = connection.CreateCommand())
+                await connection.OpenAsync();
+                int orderId;
+                using (var transaction = await connection.BeginTransactionAsync())
                 {
-                    command.Transaction = transaction;
-                    command.CommandText = "INSERT INTO orders (email, user_first_name, user_last_name, " +
-                                          "phone, postal_code, address, APM, total_price, status) " +
-                                          "VALUES (@value1, @value2, @value3, @value4, @value5, @value6, @value7, @value8, @value9)";
-                    command.Parameters.AddWithValue("@value1", email);
-                    command.Parameters.AddWithValue("@value2", name);
-                    command.Parameters.AddWithValue("@value3", lastName);
-                    command.Parameters.AddWithValue("@value4", phone);
-                    command.Parameters.AddWithValue("@value5", postalCode);
-                    command.Parameters.AddWithValue("@value6", address);
-                    command.Parameters.AddWithValue("@value7", APM);
-                    command.Parameters.AddWithValue("@value8", totalPrice);
-                    command.Parameters.AddWithValue("@value9", status);
-                    await command.ExecuteNonQueryAsync();
-                    orderId = (int)command.LastInsertedId; 
-                }
-
-                
-                foreach (var item in items)
-                {
-                    using (var command = connection.CreateCommand())
+                    try
                     {
-                        command.Transaction = transaction;
-                        command.CommandText = @"INSERT INTO orders_items (order_id, item_id, item_count) 
-                                                VALUES (@orderId, @itemId, @itemCount)";
-                        command.Parameters.AddWithValue("@orderId", orderId);
-                        command.Parameters.AddWithValue("@itemId", item.getId());
-                        command.Parameters.AddWithValue("@itemCount", item.getUserCount());
-                        await command.ExecuteNonQueryAsync();
-                    }
-                }
+                        using (var command = connection.CreateCommand())
+                        {
+                            command.Transaction = transaction;
+                            command.CommandText = "INSERT INTO orders (email, user_first_name, user_last_name, " +
+                                                  "phone, postal_code, address, APM, total_price, status) " +
+                                                  "VALUES (@value1, @value2, @value3, @value4, @value5, @value6, @value7, @value8, @value9)";
+                            command.Parameters.AddWithValue("@value1", email);
+                            command.Parameters.AddWithValue("@value2", name);
+                            command.Parameters.AddWithValue("@value3", lastName);
+                            command.Parameters.AddWithValue("@value4", phone);
+                            command.Parameters.AddWithValue("@value5", postalCode);
+                            command.Parameters.AddWithValue("@value6", address);
+                            command.Parameters.AddWithValue("@value7", APM);
+                            command.Parameters.AddWithValue("@value8", totalPrice);
+                            command.Parameters.AddWithValue("@value9", status);
+                            await command.ExecuteNonQueryAsync();
+                            orderId = (int)command.LastInsertedId;
+                        }
 
-               
-                await transaction.CommitAsync();
-                return true; 
-            } 
-        }
-        catch (Exception ex)
-        {
-            await Logger.LogAsync("Error creating order with items: " + ex.Message, Logger.LogLevel.Error);
-            return false;
+
+                        foreach (var item in items)
+                        {
+                            using (var command = connection.CreateCommand())
+                            {
+                                command.Transaction = transaction;
+                                command.CommandText = @"INSERT INTO orders_items (order_id, item_id, item_count) 
+                                                VALUES (@orderId, @itemId, @itemCount)";
+                                command.Parameters.AddWithValue("@orderId", orderId);
+                                command.Parameters.AddWithValue("@itemId", item.getId());
+                                command.Parameters.AddWithValue("@itemCount", item.getUserCount());
+                                await command.ExecuteNonQueryAsync();
+                            }
+                        }
+
+                        foreach (var item in items)
+                        {
+                            using (var command = connection.CreateCommand())
+                            {
+                                command.Transaction = transaction;
+                                command.CommandText = @"UPDATE items SET count = count - @value1 WHERE id = @value2";
+                                command.Parameters.AddWithValue("@value1", item.getUserCount());
+                                command.Parameters.AddWithValue("@value2", item.getId());
+                                await command.ExecuteNonQueryAsync();
+                            }
+                        }
+
+                        await transaction.CommitAsync();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        await Logger.LogAsync("Error inside transaction: " + ex.Message, Logger.LogLevel.Error);
+                        await transaction.RollbackAsync();
+                        return false;
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                await Logger.LogAsync("Error creating order with items: " + ex.Message, Logger.LogLevel.Error);
+                return false;
+            }
         }
     }
-}
+
     public static async Task removeFromUserCart(string email, int id)
     {
         using (var connection = new MySqlConnection(connectionString))

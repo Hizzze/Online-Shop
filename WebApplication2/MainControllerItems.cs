@@ -70,31 +70,30 @@ public class MainControllerItems
         }
         return null;
     }
-    public async Task<bool> onBuyItem(string name, int count)
+    public async Task<bool> onBuyItem(User user, Order order)
     {
         await semaphore.WaitAsync();
         try
         {
-            foreach (var item in items)
+            foreach (var itemOrder in order.items)
             {
-                if (item.getName() == name)
+                var item = items.FirstOrDefault(i => i.id == itemOrder.id);
+                if (item.getCount() < itemOrder.getUserCount())
                 {
-                    if (item.getCount() >= count)
-                    {
-                        if(await Task.Run(() => Database.onBuyItem(name, count)));
-                        {
-                            item.setCount(item.getCount() - count);
-                            return true;
-                        }
-                    }
+                    return false;
                 }
+            }
+            if (await user.createOrder(order))
+            {
+                onReload();
+                return true;
             }
             return false;
         }
         catch (Exception ex)
         {
             await Logger.LogAsync("Error on buy item: " + ex.Message, Logger.LogLevel.Error);
-            throw;
+            return false;
         }
         finally
         {

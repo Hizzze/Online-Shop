@@ -41,9 +41,18 @@ public class BuyController : Controller
                 ModelState.AddModelError("", "User not found.");
                 return View(model);
             }
-            decimal price = user.cart.Sum(item => item.price * item.userCount); 
-            await user.createOrder(new Order(user.cart, model.email, model.name, model.lastName, 
-                model.phone, model.postalCode, model.address, model.APM, price, "Processing"));
+            decimal price = user.cart.Sum(item => item.price * item.userCount);
+            /*if (await user.createOrder(new Order(user.cart, model.email, model.name, model.lastName,
+                    model.phone, model.postalCode, model.address, model.APM, price, "Processing")))*/
+            if (await itemsObject.onBuyItem(user, new Order(user.cart, model.email, model.name, model.lastName,
+                    model.phone, model.postalCode, model.address, model.APM, price, "Processing")))
+            {
+                return View(model);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
         else
         {
